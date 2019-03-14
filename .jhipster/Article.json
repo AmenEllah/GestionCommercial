@@ -1,0 +1,63 @@
+{
+  "fluentMethods": true,
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "relationshipName": "achat",
+      "otherEntityName": "achat",
+      "otherEntityRelationshipName": "article"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "relationshipName": "vente",
+      "otherEntityName": "vente",
+      "otherEntityRelationshipName": "article"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required",
+      "relationshipName": "famille",
+      "otherEntityName": "famille",
+      "otherEntityField": "libelle"
+    }
+  ],
+  "fields": [
+    {
+      "fieldName": "code",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "libelle",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "tVa",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "unite",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "prix",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "totalVente",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "totalAchat",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "stockInitiale",
+      "fieldType": "Long"
+    }
+  ],
+  "changelogDate": "20190314222407",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "entityTableName": "article"
+}

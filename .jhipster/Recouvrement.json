@@ -1,0 +1,27 @@
+{
+  "fluentMethods": true,
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required",
+      "relationshipName": "vente",
+      "otherEntityName": "vente",
+      "otherEntityField": "id"
+    }
+  ],
+  "fields": [
+    {
+      "fieldName": "montant",
+      "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "dateRec",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "changelogDate": "20190314222412",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "entityTableName": "recouvrement"
+}

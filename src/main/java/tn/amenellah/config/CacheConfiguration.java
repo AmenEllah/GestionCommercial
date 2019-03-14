@@ -38,6 +38,21 @@ public class CacheConfiguration {
             cm.createCache(tn.amenellah.domain.User.class.getName(), jcacheConfiguration);
             cm.createCache(tn.amenellah.domain.Authority.class.getName(), jcacheConfiguration);
             cm.createCache(tn.amenellah.domain.User.class.getName() + ".authorities", jcacheConfiguration);
+            cm.createCache(tn.amenellah.domain.Article.class.getName(), jcacheConfiguration);
+            cm.createCache(tn.amenellah.domain.Article.class.getName() + ".achats", jcacheConfiguration);
+            cm.createCache(tn.amenellah.domain.Article.class.getName() + ".ventes", jcacheConfiguration);
+            cm.createCache(tn.amenellah.domain.Famille.class.getName(), jcacheConfiguration);
+            cm.createCache(tn.amenellah.domain.Famille.class.getName() + ".articles", jcacheConfiguration);
+            cm.createCache(tn.amenellah.domain.Fournisseur.class.getName(), jcacheConfiguration);
+            cm.createCache(tn.amenellah.domain.Fournisseur.class.getName() + ".achats", jcacheConfiguration);
+            cm.createCache(tn.amenellah.domain.Client.class.getName(), jcacheConfiguration);
+            cm.createCache(tn.amenellah.domain.Client.class.getName() + ".ventes", jcacheConfiguration);
+            cm.createCache(tn.amenellah.domain.Reglement.class.getName(), jcacheConfiguration);
+            cm.createCache(tn.amenellah.domain.Recouvrement.class.getName(), jcacheConfiguration);
+            cm.createCache(tn.amenellah.domain.Achat.class.getName(), jcacheConfiguration);
+            cm.createCache(tn.amenellah.domain.Achat.class.getName() + ".reglements", jcacheConfiguration);
+            cm.createCache(tn.amenellah.domain.Vente.class.getName(), jcacheConfiguration);
+            cm.createCache(tn.amenellah.domain.Vente.class.getName() + ".recouvrements", jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

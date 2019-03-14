@@ -1,0 +1,42 @@
+{
+  "fluentMethods": true,
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "relationshipName": "achat",
+      "otherEntityName": "achat",
+      "otherEntityRelationshipName": "fournisseur"
+    }
+  ],
+  "fields": [
+    {
+      "fieldName": "code",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "nom",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "matricule",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "codePostal",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "adresse",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "telephone",
+      "fieldType": "String"
+    }
+  ],
+  "changelogDate": "20190314222409",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "entityTableName": "fournisseur"
+}

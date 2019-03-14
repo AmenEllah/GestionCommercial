@@ -1,0 +1,61 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="article">
+            <h2><span jhiTranslate="gestionApp.article.detail.title">Article</span> {{article.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="gestionApp.article.code">Code</span></dt>
+                <dd>
+                    <span>{{article.code}}</span>
+                </dd>
+                <dt><span jhiTranslate="gestionApp.article.libelle">Libelle</span></dt>
+                <dd>
+                    <span>{{article.libelle}}</span>
+                </dd>
+                <dt><span jhiTranslate="gestionApp.article.tVa">T Va</span></dt>
+                <dd>
+                    <span>{{article.tVa}}</span>
+                </dd>
+                <dt><span jhiTranslate="gestionApp.article.unite">Unite</span></dt>
+                <dd>
+                    <span>{{article.unite}}</span>
+                </dd>
+                <dt><span jhiTranslate="gestionApp.article.prix">Prix</span></dt>
+                <dd>
+                    <span>{{article.prix}}</span>
+                </dd>
+                <dt><span jhiTranslate="gestionApp.article.totalVente">Total Vente</span></dt>
+                <dd>
+                    <span>{{article.totalVente}}</span>
+                </dd>
+                <dt><span jhiTranslate="gestionApp.article.totalAchat">Total Achat</span></dt>
+                <dd>
+                    <span>{{article.totalAchat}}</span>
+                </dd>
+                <dt><span jhiTranslate="gestionApp.article.stockInitiale">Stock Initiale</span></dt>
+                <dd>
+                    <span>{{article.stockInitiale}}</span>
+                </dd>
+                <dt><span jhiTranslate="gestionApp.article.famille">Famille</span></dt>
+                <dd>
+                    <div *ngIf="article.famille">
+                        <a [routerLink]="['/famille', article.famille?.id, 'view']">{{article.famille?.libelle}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/article', article.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

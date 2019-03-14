@@ -1,0 +1,27 @@
+
+{
+    "gestionApp": {
+        "achat" : {
+            "home": {
+                "title": "Achats",
+                "createLabel": "Créer un nouveau Achat",
+                "createOrEditLabel": "Créer ou éditer un Achat"
+            },
+            "created": "Un nouveau Achat a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Achat avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Achat avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Achat {{ id }} ?"
+            },
+            "detail": {
+                "title": "Achat"
+            },
+            "quantite": "Quantite",
+            "dateAchat": "Date Achat",
+            "totalPrix": "Total Prix",
+            "reglement": "Reglement",
+            "article": "Article",
+            "fournisseur": "Fournisseur"
+        }
+    }
+}

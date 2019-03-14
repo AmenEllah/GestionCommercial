@@ -1,0 +1,32 @@
+
+{
+    "gestionApp": {
+        "article" : {
+            "home": {
+                "title": "Articles",
+                "createLabel": "Créer un nouveau Article",
+                "createOrEditLabel": "Créer ou éditer un Article"
+            },
+            "created": "Un nouveau Article a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Article avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Article avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Article {{ id }} ?"
+            },
+            "detail": {
+                "title": "Article"
+            },
+            "code": "Code",
+            "libelle": "Libelle",
+            "tVa": "T Va",
+            "unite": "Unite",
+            "prix": "Prix",
+            "totalVente": "Total Vente",
+            "totalAchat": "Total Achat",
+            "stockInitiale": "Stock Initiale",
+            "achat": "Achat",
+            "vente": "Vente",
+            "famille": "Famille"
+        }
+    }
+}

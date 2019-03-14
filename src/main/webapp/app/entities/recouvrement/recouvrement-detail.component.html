@@ -1,0 +1,37 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="recouvrement">
+            <h2><span jhiTranslate="gestionApp.recouvrement.detail.title">Recouvrement</span> {{recouvrement.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="gestionApp.recouvrement.montant">Montant</span></dt>
+                <dd>
+                    <span>{{recouvrement.montant}}</span>
+                </dd>
+                <dt><span jhiTranslate="gestionApp.recouvrement.dateRec">Date Rec</span></dt>
+                <dd>
+                    <span>{{recouvrement.dateRec}}</span>
+                </dd>
+                <dt><span jhiTranslate="gestionApp.recouvrement.vente">Vente</span></dt>
+                <dd>
+                    <div *ngIf="recouvrement.vente">
+                        <a [routerLink]="['/vente', recouvrement.vente?.id, 'view']">{{recouvrement.vente?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/recouvrement', recouvrement.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

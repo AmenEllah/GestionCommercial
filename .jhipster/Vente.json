@@ -1,0 +1,42 @@
+{
+  "fluentMethods": true,
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "relationshipName": "recouvrement",
+      "otherEntityName": "recouvrement",
+      "otherEntityRelationshipName": "vente"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "relationshipName": "article",
+      "otherEntityName": "article",
+      "otherEntityField": "code"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "relationshipName": "client",
+      "otherEntityName": "client",
+      "otherEntityField": "nom"
+    }
+  ],
+  "fields": [
+    {
+      "fieldName": "quantite",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "dateVente",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "totalPrix",
+      "fieldType": "BigDecimal"
+    }
+  ],
+  "changelogDate": "20190314222414",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "entityTableName": "vente"
+}

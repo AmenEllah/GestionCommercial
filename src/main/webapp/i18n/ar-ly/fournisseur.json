@@ -1,0 +1,28 @@
+
+{
+    "gestionApp": {
+        "fournisseur" : {
+            "home": {
+                "title": "Fournisseurs",
+                "createLabel": "Create a new Fournisseur",
+                "createOrEditLabel": "Create or edit a Fournisseur"
+            },
+            "created": "A new Fournisseur is created with identifier {{ param }}",
+            "updated": "A Fournisseur is updated with identifier {{ param }}",
+            "deleted": "A Fournisseur is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Fournisseur {{ id }}?"
+            },
+            "detail": {
+                "title": "Fournisseur"
+            },
+            "code": "Code",
+            "nom": "Nom",
+            "matricule": "Matricule",
+            "codePostal": "Code Postal",
+            "adresse": "Adresse",
+            "telephone": "Telephone",
+            "achat": "Achat"
+        }
+    }
+}

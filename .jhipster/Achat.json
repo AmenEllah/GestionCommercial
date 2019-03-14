@@ -1,0 +1,42 @@
+{
+  "fluentMethods": true,
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "relationshipName": "reglement",
+      "otherEntityName": "reglement",
+      "otherEntityRelationshipName": "achat"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "relationshipName": "article",
+      "otherEntityName": "article",
+      "otherEntityField": "code"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "relationshipName": "fournisseur",
+      "otherEntityName": "fournisseur",
+      "otherEntityField": "nom"
+    }
+  ],
+  "fields": [
+    {
+      "fieldName": "quantite",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "dateAchat",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "totalPrix",
+      "fieldType": "BigDecimal"
+    }
+  ],
+  "changelogDate": "20190314222413",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "entityTableName": "achat"
+}

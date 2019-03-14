@@ -1,0 +1,27 @@
+
+{
+    "gestionApp": {
+        "vente" : {
+            "home": {
+                "title": "Ventes",
+                "createLabel": "Create a new Vente",
+                "createOrEditLabel": "Create or edit a Vente"
+            },
+            "created": "A new Vente is created with identifier {{ param }}",
+            "updated": "A Vente is updated with identifier {{ param }}",
+            "deleted": "A Vente is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Vente {{ id }}?"
+            },
+            "detail": {
+                "title": "Vente"
+            },
+            "quantite": "Quantite",
+            "dateVente": "Date Vente",
+            "totalPrix": "Total Prix",
+            "recouvrement": "Recouvrement",
+            "article": "Article",
+            "client": "Client"
+        }
+    }
+}

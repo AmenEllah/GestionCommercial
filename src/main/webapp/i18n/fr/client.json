@@ -1,0 +1,28 @@
+
+{
+    "gestionApp": {
+        "client" : {
+            "home": {
+                "title": "Clients",
+                "createLabel": "Créer un nouveau Client",
+                "createOrEditLabel": "Créer ou éditer un Client"
+            },
+            "created": "Un nouveau Client a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Client avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Client avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Client {{ id }} ?"
+            },
+            "detail": {
+                "title": "Client"
+            },
+            "code": "Code",
+            "nom": "Nom",
+            "matricule": "Matricule",
+            "codePostal": "Code Postal",
+            "telephone": "Telephone",
+            "adresse": "Adresse",
+            "vente": "Vente"
+        }
+    }
+}

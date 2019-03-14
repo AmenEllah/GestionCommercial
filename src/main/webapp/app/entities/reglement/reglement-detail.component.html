@@ -1,0 +1,37 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="reglement">
+            <h2><span jhiTranslate="gestionApp.reglement.detail.title">Reglement</span> {{reglement.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="gestionApp.reglement.montant">Montant</span></dt>
+                <dd>
+                    <span>{{reglement.montant}}</span>
+                </dd>
+                <dt><span jhiTranslate="gestionApp.reglement.dateRec">Date Rec</span></dt>
+                <dd>
+                    <span>{{reglement.dateRec}}</span>
+                </dd>
+                <dt><span jhiTranslate="gestionApp.reglement.achat">Achat</span></dt>
+                <dd>
+                    <div *ngIf="reglement.achat">
+                        <a [routerLink]="['/achat', reglement.achat?.id, 'view']">{{reglement.achat?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/reglement', reglement.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

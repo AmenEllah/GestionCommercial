@@ -78,7 +78,7 @@ spring:
 #        key-alias: gestion
 # ===================================================================
 server:
-    port: 8080
+    port: 8081
 
 # ===================================================================
 # JHipster specific properties
@@ -110,7 +110,7 @@ jhipster:
                 token-validity-in-seconds-for-remember-me: 2592000
     mail: # specific JHipster mail property, for standard properties see MailProperties
         from: Gestion@localhost
-        base-url: http://127.0.0.1:8080
+        base-url: http://127.0.0.1:8081
     metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
         jmx:
             enabled: true

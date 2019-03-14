@@ -9,7 +9,7 @@
     "baseName": "Gestion",
     "packageName": "tn.amenellah",
     "packageFolder": "tn/amenellah",
-    "serverPort": "8080",
+    "serverPort": "8081",
     "authenticationType": "jwt",
     "cacheProvider": "ehcache",
     "enableHibernateCache": true,

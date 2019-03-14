@@ -1,0 +1,70 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="gestionApp.vente.home.title">Ventes</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-vente" [routerLink]="['/vente/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="gestionApp.vente.home.createLabel">
+            Create new Vente
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="ventes">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="gestionApp.vente.quantite">Quantite</span></th>
+            <th><span jhiTranslate="gestionApp.vente.dateVente">Date Vente</span></th>
+            <th><span jhiTranslate="gestionApp.vente.totalPrix">Total Prix</span></th>
+            <th><span jhiTranslate="gestionApp.vente.article">Article</span></th>
+            <th><span jhiTranslate="gestionApp.vente.client">Client</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let vente of ventes ;trackBy: trackId">
+                <td><a [routerLink]="['/vente', vente.id, 'view' ]">{{vente.id}}</a></td>
+                <td>{{vente.quantite}}</td>
+                <td>{{vente.dateVente | date:'mediumDate'}}</td>
+                <td>{{vente.totalPrix}}</td>
+                <td>
+                    <div *ngIf="vente.article">
+                        <a [routerLink]="['../article', vente.article?.id, 'view' ]" >{{vente.article?.code}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="vente.client">
+                        <a [routerLink]="['../client', vente.client?.id, 'view' ]" >{{vente.client?.nom}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/vente', vente.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/vente', vente.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'vente/'+ vente.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

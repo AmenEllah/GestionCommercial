@@ -1,0 +1,77 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-article-heading" jhiTranslate="gestionApp.article.home.createOrEditLabel">Create or edit a Article</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!article.id">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="article.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gestionApp.article.code" for="field_code">Code</label>
+                    <input type="text" class="form-control" name="code" id="field_code"
+                        [(ngModel)]="article.code" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gestionApp.article.libelle" for="field_libelle">Libelle</label>
+                    <input type="text" class="form-control" name="libelle" id="field_libelle"
+                        [(ngModel)]="article.libelle" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gestionApp.article.tVa" for="field_tVa">T Va</label>
+                    <input type="number" class="form-control" name="tVa" id="field_tVa"
+                        [(ngModel)]="article.tVa" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gestionApp.article.unite" for="field_unite">Unite</label>
+                    <input type="text" class="form-control" name="unite" id="field_unite"
+                        [(ngModel)]="article.unite" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gestionApp.article.prix" for="field_prix">Prix</label>
+                    <input type="number" class="form-control" name="prix" id="field_prix"
+                        [(ngModel)]="article.prix" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gestionApp.article.totalVente" for="field_totalVente">Total Vente</label>
+                    <input type="number" class="form-control" name="totalVente" id="field_totalVente"
+                        [(ngModel)]="article.totalVente" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gestionApp.article.totalAchat" for="field_totalAchat">Total Achat</label>
+                    <input type="number" class="form-control" name="totalAchat" id="field_totalAchat"
+                        [(ngModel)]="article.totalAchat" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gestionApp.article.stockInitiale" for="field_stockInitiale">Stock Initiale</label>
+                    <input type="number" class="form-control" name="stockInitiale" id="field_stockInitiale"
+                        [(ngModel)]="article.stockInitiale" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gestionApp.article.famille" for="field_famille">Famille</label>
+                    <select class="form-control" id="field_famille" name="famille" [(ngModel)]="article.famille"  required>
+                        <option *ngIf="!editForm.value.famille" [ngValue]="null" selected></option>
+                        <option [ngValue]="familleOption.id === article.famille?.id ? article.famille : familleOption" *ngFor="let familleOption of familles; trackBy: trackFamilleById">{{familleOption.libelle}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.famille?.dirty && editForm.controls.famille?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.famille?.errors?.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

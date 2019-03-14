@@ -1,0 +1,24 @@
+
+{
+    "gestionApp": {
+        "recouvrement" : {
+            "home": {
+                "title": "Recouvrements",
+                "createLabel": "Créer un nouveau Recouvrement",
+                "createOrEditLabel": "Créer ou éditer un Recouvrement"
+            },
+            "created": "Un nouveau Recouvrement a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Recouvrement avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Recouvrement avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Recouvrement {{ id }} ?"
+            },
+            "detail": {
+                "title": "Recouvrement"
+            },
+            "montant": "Montant",
+            "dateRec": "Date Rec",
+            "vente": "Vente"
+        }
+    }
+}

@@ -1,0 +1,74 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="gestionApp.article.home.title">Articles</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-article" [routerLink]="['/article/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="gestionApp.article.home.createLabel">
+            Create new Article
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="articles">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="gestionApp.article.code">Code</span></th>
+            <th><span jhiTranslate="gestionApp.article.libelle">Libelle</span></th>
+            <th><span jhiTranslate="gestionApp.article.tVa">T Va</span></th>
+            <th><span jhiTranslate="gestionApp.article.unite">Unite</span></th>
+            <th><span jhiTranslate="gestionApp.article.prix">Prix</span></th>
+            <th><span jhiTranslate="gestionApp.article.totalVente">Total Vente</span></th>
+            <th><span jhiTranslate="gestionApp.article.totalAchat">Total Achat</span></th>
+            <th><span jhiTranslate="gestionApp.article.stockInitiale">Stock Initiale</span></th>
+            <th><span jhiTranslate="gestionApp.article.famille">Famille</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let article of articles ;trackBy: trackId">
+                <td><a [routerLink]="['/article', article.id, 'view' ]">{{article.id}}</a></td>
+                <td>{{article.code}}</td>
+                <td>{{article.libelle}}</td>
+                <td>{{article.tVa}}</td>
+                <td>{{article.unite}}</td>
+                <td>{{article.prix}}</td>
+                <td>{{article.totalVente}}</td>
+                <td>{{article.totalAchat}}</td>
+                <td>{{article.stockInitiale}}</td>
+                <td>
+                    <div *ngIf="article.famille">
+                        <a [routerLink]="['../famille', article.famille?.id, 'view' ]" >{{article.famille?.libelle}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/article', article.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/article', article.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'article/'+ article.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+{
+  "fluentMethods": true,
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "relationshipName": "article",
+      "otherEntityName": "article",
+      "otherEntityRelationshipName": "famille"
+    }
+  ],
+  "fields": [
+    {
+      "fieldName": "libelle",
+      "fieldType": "String"
+    }
+  ],
+  "changelogDate": "20190314222408",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "entityTableName": "famille"
+}
