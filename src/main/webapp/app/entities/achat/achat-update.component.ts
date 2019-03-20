@@ -57,6 +57,11 @@ export class AchatUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+        this.achat.totalPrix = this.achat.quantite * this.achat.article.prix;
+        this.articleService.find(this.achat.article.id).subscribe((data: HttpResponse<IArticle>) => {
+            data.body.totalAchat = data.body.totalAchat + this.achat.quantite;
+            this.articleService.update(data.body).subscribe();
+        });
         if (this.achat.id !== undefined) {
             this.subscribeToSaveResponse(this.achatService.update(this.achat));
         } else {

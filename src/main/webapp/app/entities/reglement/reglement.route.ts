@@ -60,6 +60,18 @@ export const reglementRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
+        path: 'reglement/new/:idA',
+        component: ReglementUpdateComponent,
+        resolve: {
+            reglement: ReglementResolve
+        },
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'gestionApp.reglement.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    },
+    {
         path: 'reglement/:id/edit',
         component: ReglementUpdateComponent,
         resolve: {

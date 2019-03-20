@@ -20,7 +20,7 @@ export class VenteUpdateComponent implements OnInit {
     isSaving: boolean;
 
     articles: IArticle[];
-
+    ancienQuantite: number;
     clients: IClient[];
     dateVenteDp: any;
 
@@ -49,6 +49,10 @@ export class VenteUpdateComponent implements OnInit {
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
+
+        if (this.vente.id !== undefined) {
+            this.ancienQuantite = this.vente.quantite;
+        }
     }
 
     previousState() {
@@ -56,10 +60,20 @@ export class VenteUpdateComponent implements OnInit {
     }
 
     save() {
+        this.vente.totalPrix = this.vente.quantite * this.vente.article.prix;
+
         this.isSaving = true;
         if (this.vente.id !== undefined) {
+            this.articleService.find(this.vente.article.id).subscribe((data: HttpResponse<IArticle>) => {
+                data.body.totalVente = data.body.totalVente + this.vente.quantite - this.ancienQuantite;
+                this.articleService.update(data.body).subscribe();
+            });
             this.subscribeToSaveResponse(this.venteService.update(this.vente));
         } else {
+            this.articleService.find(this.vente.article.id).subscribe((data: HttpResponse<IArticle>) => {
+                data.body.totalVente = data.body.totalVente + this.vente.quantite;
+                this.articleService.update(data.body).subscribe();
+            });
             this.subscribeToSaveResponse(this.venteService.create(this.vente));
         }
     }

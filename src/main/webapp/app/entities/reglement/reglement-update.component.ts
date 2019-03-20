@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { JhiAlertService } from 'ng-jhipster';
@@ -16,9 +16,11 @@ import { AchatService } from 'app/entities/achat';
 export class ReglementUpdateComponent implements OnInit {
     private _reglement: IReglement;
     isSaving: boolean;
+    new: boolean;
 
     achats: IAchat[];
     dateRecDp: any;
+    id: number;
 
     constructor(
         private jhiAlertService: JhiAlertService,
@@ -28,6 +30,7 @@ export class ReglementUpdateComponent implements OnInit {
     ) {}
 
     ngOnInit() {
+        this.new = true;
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ reglement }) => {
             this.reglement = reglement;
@@ -38,6 +41,16 @@ export class ReglementUpdateComponent implements OnInit {
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
+
+        this.activatedRoute.params.subscribe((params: Params) => {
+            this.id = +params['idA'];
+            if (this.id) {
+                this.achatService.find(this.id).subscribe((res: HttpResponse<IAchat>) => {
+                    this.reglement.achat = res.body;
+                    this.new = false;
+                });
+            }
+        });
     }
 
     previousState() {
