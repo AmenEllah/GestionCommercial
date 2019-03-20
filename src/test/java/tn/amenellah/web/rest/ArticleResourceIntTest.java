@@ -47,8 +47,8 @@ public class ArticleResourceIntTest {
     private static final String DEFAULT_LIBELLE = "AAAAAAAAAA";
     private static final String UPDATED_LIBELLE = "BBBBBBBBBB";
 
-    private static final Integer DEFAULT_T_VA = 1;
-    private static final Integer UPDATED_T_VA = 2;
+    private static final Integer DEFAULT_TVA = 1;
+    private static final Integer UPDATED_TVA = 2;
 
     private static final String DEFAULT_UNITE = "AAAAAAAAAA";
     private static final String UPDATED_UNITE = "BBBBBBBBBB";
@@ -106,7 +106,7 @@ public class ArticleResourceIntTest {
         Article article = new Article()
             .code(DEFAULT_CODE)
             .libelle(DEFAULT_LIBELLE)
-            .tVa(DEFAULT_T_VA)
+            .tva(DEFAULT_TVA)
             .unite(DEFAULT_UNITE)
             .prix(DEFAULT_PRIX)
             .totalVente(DEFAULT_TOTAL_VENTE)
@@ -142,7 +142,7 @@ public class ArticleResourceIntTest {
         Article testArticle = articleList.get(articleList.size() - 1);
         assertThat(testArticle.getCode()).isEqualTo(DEFAULT_CODE);
         assertThat(testArticle.getLibelle()).isEqualTo(DEFAULT_LIBELLE);
-        assertThat(testArticle.gettVa()).isEqualTo(DEFAULT_T_VA);
+        assertThat(testArticle.getTva()).isEqualTo(DEFAULT_TVA);
         assertThat(testArticle.getUnite()).isEqualTo(DEFAULT_UNITE);
         assertThat(testArticle.getPrix()).isEqualTo(DEFAULT_PRIX);
         assertThat(testArticle.getTotalVente()).isEqualTo(DEFAULT_TOTAL_VENTE);
@@ -182,7 +182,7 @@ public class ArticleResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(article.getId().intValue())))
             .andExpect(jsonPath("$.[*].code").value(hasItem(DEFAULT_CODE.toString())))
             .andExpect(jsonPath("$.[*].libelle").value(hasItem(DEFAULT_LIBELLE.toString())))
-            .andExpect(jsonPath("$.[*].tVa").value(hasItem(DEFAULT_T_VA)))
+            .andExpect(jsonPath("$.[*].tva").value(hasItem(DEFAULT_TVA)))
             .andExpect(jsonPath("$.[*].unite").value(hasItem(DEFAULT_UNITE.toString())))
             .andExpect(jsonPath("$.[*].prix").value(hasItem(DEFAULT_PRIX.intValue())))
             .andExpect(jsonPath("$.[*].totalVente").value(hasItem(DEFAULT_TOTAL_VENTE)))
@@ -204,7 +204,7 @@ public class ArticleResourceIntTest {
             .andExpect(jsonPath("$.id").value(article.getId().intValue()))
             .andExpect(jsonPath("$.code").value(DEFAULT_CODE.toString()))
             .andExpect(jsonPath("$.libelle").value(DEFAULT_LIBELLE.toString()))
-            .andExpect(jsonPath("$.tVa").value(DEFAULT_T_VA))
+            .andExpect(jsonPath("$.tva").value(DEFAULT_TVA))
             .andExpect(jsonPath("$.unite").value(DEFAULT_UNITE.toString()))
             .andExpect(jsonPath("$.prix").value(DEFAULT_PRIX.intValue()))
             .andExpect(jsonPath("$.totalVente").value(DEFAULT_TOTAL_VENTE))
@@ -234,7 +234,7 @@ public class ArticleResourceIntTest {
         updatedArticle
             .code(UPDATED_CODE)
             .libelle(UPDATED_LIBELLE)
-            .tVa(UPDATED_T_VA)
+            .tva(UPDATED_TVA)
             .unite(UPDATED_UNITE)
             .prix(UPDATED_PRIX)
             .totalVente(UPDATED_TOTAL_VENTE)
@@ -252,7 +252,7 @@ public class ArticleResourceIntTest {
         Article testArticle = articleList.get(articleList.size() - 1);
         assertThat(testArticle.getCode()).isEqualTo(UPDATED_CODE);
         assertThat(testArticle.getLibelle()).isEqualTo(UPDATED_LIBELLE);
-        assertThat(testArticle.gettVa()).isEqualTo(UPDATED_T_VA);
+        assertThat(testArticle.getTva()).isEqualTo(UPDATED_TVA);
         assertThat(testArticle.getUnite()).isEqualTo(UPDATED_UNITE);
         assertThat(testArticle.getPrix()).isEqualTo(UPDATED_PRIX);
         assertThat(testArticle.getTotalVente()).isEqualTo(UPDATED_TOTAL_VENTE);

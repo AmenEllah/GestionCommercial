@@ -21,6 +21,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -56,6 +57,9 @@ public class ClientResourceIntTest {
 
     private static final String DEFAULT_ADRESSE = "AAAAAAAAAA";
     private static final String UPDATED_ADRESSE = "BBBBBBBBBB";
+
+    private static final BigDecimal DEFAULT_MONTANT_RESTANT = new BigDecimal(1);
+    private static final BigDecimal UPDATED_MONTANT_RESTANT = new BigDecimal(2);
 
     @Autowired
     private ClientRepository clientRepository;
@@ -101,7 +105,8 @@ public class ClientResourceIntTest {
             .matricule(DEFAULT_MATRICULE)
             .codePostal(DEFAULT_CODE_POSTAL)
             .telephone(DEFAULT_TELEPHONE)
-            .adresse(DEFAULT_ADRESSE);
+            .adresse(DEFAULT_ADRESSE)
+            .montantRestant(DEFAULT_MONTANT_RESTANT);
         return client;
     }
 
@@ -131,6 +136,7 @@ public class ClientResourceIntTest {
         assertThat(testClient.getCodePostal()).isEqualTo(DEFAULT_CODE_POSTAL);
         assertThat(testClient.getTelephone()).isEqualTo(DEFAULT_TELEPHONE);
         assertThat(testClient.getAdresse()).isEqualTo(DEFAULT_ADRESSE);
+        assertThat(testClient.getMontantRestant()).isEqualTo(DEFAULT_MONTANT_RESTANT);
     }
 
     @Test
@@ -168,7 +174,8 @@ public class ClientResourceIntTest {
             .andExpect(jsonPath("$.[*].matricule").value(hasItem(DEFAULT_MATRICULE.toString())))
             .andExpect(jsonPath("$.[*].codePostal").value(hasItem(DEFAULT_CODE_POSTAL.toString())))
             .andExpect(jsonPath("$.[*].telephone").value(hasItem(DEFAULT_TELEPHONE.toString())))
-            .andExpect(jsonPath("$.[*].adresse").value(hasItem(DEFAULT_ADRESSE.toString())));
+            .andExpect(jsonPath("$.[*].adresse").value(hasItem(DEFAULT_ADRESSE.toString())))
+            .andExpect(jsonPath("$.[*].montantRestant").value(hasItem(DEFAULT_MONTANT_RESTANT.intValue())));
     }
     
 
@@ -188,7 +195,8 @@ public class ClientResourceIntTest {
             .andExpect(jsonPath("$.matricule").value(DEFAULT_MATRICULE.toString()))
             .andExpect(jsonPath("$.codePostal").value(DEFAULT_CODE_POSTAL.toString()))
             .andExpect(jsonPath("$.telephone").value(DEFAULT_TELEPHONE.toString()))
-            .andExpect(jsonPath("$.adresse").value(DEFAULT_ADRESSE.toString()));
+            .andExpect(jsonPath("$.adresse").value(DEFAULT_ADRESSE.toString()))
+            .andExpect(jsonPath("$.montantRestant").value(DEFAULT_MONTANT_RESTANT.intValue()));
     }
     @Test
     @Transactional
@@ -216,7 +224,8 @@ public class ClientResourceIntTest {
             .matricule(UPDATED_MATRICULE)
             .codePostal(UPDATED_CODE_POSTAL)
             .telephone(UPDATED_TELEPHONE)
-            .adresse(UPDATED_ADRESSE);
+            .adresse(UPDATED_ADRESSE)
+            .montantRestant(UPDATED_MONTANT_RESTANT);
 
         restClientMockMvc.perform(put("/api/clients")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -233,6 +242,7 @@ public class ClientResourceIntTest {
         assertThat(testClient.getCodePostal()).isEqualTo(UPDATED_CODE_POSTAL);
         assertThat(testClient.getTelephone()).isEqualTo(UPDATED_TELEPHONE);
         assertThat(testClient.getAdresse()).isEqualTo(UPDATED_ADRESSE);
+        assertThat(testClient.getMontantRestant()).isEqualTo(UPDATED_MONTANT_RESTANT);
     }
 
     @Test

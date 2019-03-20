@@ -8,6 +8,7 @@ export interface IFournisseur {
     codePostal?: string;
     adresse?: string;
     telephone?: string;
+    montantRestant?: number;
     achats?: IAchat[];
 }
 
@@ -20,6 +21,7 @@ export class Fournisseur implements IFournisseur {
         public codePostal?: string,
         public adresse?: string,
         public telephone?: string,
+        public montantRestant?: number,
         public achats?: IAchat[]
     ) {}
 }

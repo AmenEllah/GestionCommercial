@@ -30,7 +30,7 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="t_va" type="integer">
+            <column name="tva" type="integer">
                 <constraints nullable="true" />
             </column>
 

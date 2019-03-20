@@ -6,9 +6,6 @@ import { JhiEventManager } from 'ng-jhipster';
 
 import { IVente } from 'app/shared/model/vente.model';
 import { VenteService } from './vente.service';
-import { HttpResponse } from '@angular/common/http';
-import { Article, IArticle } from 'app/shared/model/article.model';
-import { ArticleService } from '../article';
 
 @Component({
     selector: 'jhi-vente-delete-dialog',
@@ -16,24 +13,14 @@ import { ArticleService } from '../article';
 })
 export class VenteDeleteDialogComponent {
     vente: IVente;
-    constructor(
-        private venteService: VenteService,
-        public activeModal: NgbActiveModal,
-        private eventManager: JhiEventManager,
-        private articleService: ArticleService
-    ) {}
+
+    constructor(private venteService: VenteService, public activeModal: NgbActiveModal, private eventManager: JhiEventManager) {}
 
     clear() {
         this.activeModal.dismiss('cancel');
     }
 
     confirmDelete(id: number) {
-        this.venteService.find(id).subscribe((data: HttpResponse<IVente>) => {
-            this.articleService.find(data.body.article.id).subscribe((dataArticle: HttpResponse<IArticle>) => {
-                dataArticle.body.totalVente = dataArticle.body.totalVente - data.body.quantite;
-                this.articleService.update(dataArticle.body).subscribe();
-            });
-        });
         this.venteService.delete(id).subscribe(response => {
             this.eventManager.broadcast({
                 name: 'venteListModification',

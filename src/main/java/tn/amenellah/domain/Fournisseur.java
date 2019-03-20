@@ -7,6 +7,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import javax.persistence.*;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
@@ -42,6 +43,9 @@ public class Fournisseur implements Serializable {
 
     @Column(name = "telephone")
     private String telephone;
+
+    @Column(name = "montant_restant", precision = 10, scale = 2)
+    private BigDecimal montantRestant;
 
     @OneToMany(mappedBy = "fournisseur")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -134,6 +138,19 @@ public class Fournisseur implements Serializable {
         this.telephone = telephone;
     }
 
+    public BigDecimal getMontantRestant() {
+        return montantRestant;
+    }
+
+    public Fournisseur montantRestant(BigDecimal montantRestant) {
+        this.montantRestant = montantRestant;
+        return this;
+    }
+
+    public void setMontantRestant(BigDecimal montantRestant) {
+        this.montantRestant = montantRestant;
+    }
+
     public Set<Achat> getAchats() {
         return achats;
     }
@@ -190,6 +207,7 @@ public class Fournisseur implements Serializable {
             ", codePostal='" + getCodePostal() + "'" +
             ", adresse='" + getAdresse() + "'" +
             ", telephone='" + getTelephone() + "'" +
+            ", montantRestant=" + getMontantRestant() +
             "}";
     }
 }

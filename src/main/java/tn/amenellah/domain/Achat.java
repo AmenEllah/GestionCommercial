@@ -37,6 +37,9 @@ public class Achat implements Serializable {
     @Column(name = "total_prix", precision = 10, scale = 2)
     private BigDecimal totalPrix;
 
+    @Column(name = "montant_restant", precision = 10, scale = 2)
+    private BigDecimal montantRestant;
+
     @OneToMany(mappedBy = "achat")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Reglement> reglements = new HashSet<>();
@@ -95,6 +98,19 @@ public class Achat implements Serializable {
 
     public void setTotalPrix(BigDecimal totalPrix) {
         this.totalPrix = totalPrix;
+    }
+
+    public BigDecimal getMontantRestant() {
+        return montantRestant;
+    }
+
+    public Achat montantRestant(BigDecimal montantRestant) {
+        this.montantRestant = montantRestant;
+        return this;
+    }
+
+    public void setMontantRestant(BigDecimal montantRestant) {
+        this.montantRestant = montantRestant;
     }
 
     public Set<Reglement> getReglements() {
@@ -176,6 +192,7 @@ public class Achat implements Serializable {
             ", quantite=" + getQuantite() +
             ", dateAchat='" + getDateAchat() + "'" +
             ", totalPrix=" + getTotalPrix() +
+            ", montantRestant=" + getMontantRestant() +
             "}";
     }
 }

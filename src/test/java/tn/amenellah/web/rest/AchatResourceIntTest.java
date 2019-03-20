@@ -51,6 +51,9 @@ public class AchatResourceIntTest {
     private static final BigDecimal DEFAULT_TOTAL_PRIX = new BigDecimal(1);
     private static final BigDecimal UPDATED_TOTAL_PRIX = new BigDecimal(2);
 
+    private static final BigDecimal DEFAULT_MONTANT_RESTANT = new BigDecimal(1);
+    private static final BigDecimal UPDATED_MONTANT_RESTANT = new BigDecimal(2);
+
     @Autowired
     private AchatRepository achatRepository;
 
@@ -92,7 +95,8 @@ public class AchatResourceIntTest {
         Achat achat = new Achat()
             .quantite(DEFAULT_QUANTITE)
             .dateAchat(DEFAULT_DATE_ACHAT)
-            .totalPrix(DEFAULT_TOTAL_PRIX);
+            .totalPrix(DEFAULT_TOTAL_PRIX)
+            .montantRestant(DEFAULT_MONTANT_RESTANT);
         return achat;
     }
 
@@ -119,6 +123,7 @@ public class AchatResourceIntTest {
         assertThat(testAchat.getQuantite()).isEqualTo(DEFAULT_QUANTITE);
         assertThat(testAchat.getDateAchat()).isEqualTo(DEFAULT_DATE_ACHAT);
         assertThat(testAchat.getTotalPrix()).isEqualTo(DEFAULT_TOTAL_PRIX);
+        assertThat(testAchat.getMontantRestant()).isEqualTo(DEFAULT_MONTANT_RESTANT);
     }
 
     @Test
@@ -153,7 +158,8 @@ public class AchatResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(achat.getId().intValue())))
             .andExpect(jsonPath("$.[*].quantite").value(hasItem(DEFAULT_QUANTITE)))
             .andExpect(jsonPath("$.[*].dateAchat").value(hasItem(DEFAULT_DATE_ACHAT.toString())))
-            .andExpect(jsonPath("$.[*].totalPrix").value(hasItem(DEFAULT_TOTAL_PRIX.intValue())));
+            .andExpect(jsonPath("$.[*].totalPrix").value(hasItem(DEFAULT_TOTAL_PRIX.intValue())))
+            .andExpect(jsonPath("$.[*].montantRestant").value(hasItem(DEFAULT_MONTANT_RESTANT.intValue())));
     }
     
 
@@ -170,7 +176,8 @@ public class AchatResourceIntTest {
             .andExpect(jsonPath("$.id").value(achat.getId().intValue()))
             .andExpect(jsonPath("$.quantite").value(DEFAULT_QUANTITE))
             .andExpect(jsonPath("$.dateAchat").value(DEFAULT_DATE_ACHAT.toString()))
-            .andExpect(jsonPath("$.totalPrix").value(DEFAULT_TOTAL_PRIX.intValue()));
+            .andExpect(jsonPath("$.totalPrix").value(DEFAULT_TOTAL_PRIX.intValue()))
+            .andExpect(jsonPath("$.montantRestant").value(DEFAULT_MONTANT_RESTANT.intValue()));
     }
     @Test
     @Transactional
@@ -195,7 +202,8 @@ public class AchatResourceIntTest {
         updatedAchat
             .quantite(UPDATED_QUANTITE)
             .dateAchat(UPDATED_DATE_ACHAT)
-            .totalPrix(UPDATED_TOTAL_PRIX);
+            .totalPrix(UPDATED_TOTAL_PRIX)
+            .montantRestant(UPDATED_MONTANT_RESTANT);
 
         restAchatMockMvc.perform(put("/api/achats")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -209,6 +217,7 @@ public class AchatResourceIntTest {
         assertThat(testAchat.getQuantite()).isEqualTo(UPDATED_QUANTITE);
         assertThat(testAchat.getDateAchat()).isEqualTo(UPDATED_DATE_ACHAT);
         assertThat(testAchat.getTotalPrix()).isEqualTo(UPDATED_TOTAL_PRIX);
+        assertThat(testAchat.getMontantRestant()).isEqualTo(UPDATED_MONTANT_RESTANT);
     }
 
     @Test

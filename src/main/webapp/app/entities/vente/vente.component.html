@@ -18,6 +18,7 @@
             <th><span jhiTranslate="gestionApp.vente.quantite">Quantite</span></th>
             <th><span jhiTranslate="gestionApp.vente.dateVente">Date Vente</span></th>
             <th><span jhiTranslate="gestionApp.vente.totalPrix">Total Prix</span></th>
+            <th><span jhiTranslate="gestionApp.vente.montantRestant">Montant Restant</span></th>
             <th><span jhiTranslate="gestionApp.vente.article">Article</span></th>
             <th><span jhiTranslate="gestionApp.vente.client">Client</span></th>
             <th></th>
@@ -29,6 +30,7 @@
                 <td>{{vente.quantite}}</td>
                 <td>{{vente.dateVente | date:'mediumDate'}}</td>
                 <td>{{vente.totalPrix}}</td>
+                <td>{{vente.montantRestant}}</td>
                 <td>
                     <div *ngIf="vente.article">
                         <a [routerLink]="['../article', vente.article?.id, 'view' ]" >{{vente.article?.code}}</a>

@@ -19,6 +19,7 @@
             "quantite": "Quantite",
             "dateVente": "Date Vente",
             "totalPrix": "Total Prix",
+            "montantRestant": "Montant Restant",
             "recouvrement": "Recouvrement",
             "article": "Article",
             "client": "Client"

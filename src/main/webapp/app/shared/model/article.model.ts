@@ -6,7 +6,7 @@ export interface IArticle {
     id?: number;
     code?: string;
     libelle?: string;
-    tVa?: number;
+    tva?: number;
     unite?: string;
     prix?: number;
     totalVente?: number;
@@ -22,7 +22,7 @@ export class Article implements IArticle {
         public id?: number,
         public code?: string,
         public libelle?: string,
-        public tVa?: number,
+        public tva?: number,
         public unite?: string,
         public prix?: number,
         public totalVente?: number,

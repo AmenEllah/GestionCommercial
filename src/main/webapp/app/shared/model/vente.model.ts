@@ -8,6 +8,7 @@ export interface IVente {
     quantite?: number;
     dateVente?: Moment;
     totalPrix?: number;
+    montantRestant?: number;
     recouvrements?: IRecouvrement[];
     article?: IArticle;
     client?: IClient;
@@ -19,6 +20,7 @@ export class Vente implements IVente {
         public quantite?: number,
         public dateVente?: Moment,
         public totalPrix?: number,
+        public montantRestant?: number,
         public recouvrements?: IRecouvrement[],
         public article?: IArticle,
         public client?: IClient

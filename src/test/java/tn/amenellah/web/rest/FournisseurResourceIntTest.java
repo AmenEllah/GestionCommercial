@@ -21,6 +21,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -56,6 +57,9 @@ public class FournisseurResourceIntTest {
 
     private static final String DEFAULT_TELEPHONE = "AAAAAAAAAA";
     private static final String UPDATED_TELEPHONE = "BBBBBBBBBB";
+
+    private static final BigDecimal DEFAULT_MONTANT_RESTANT = new BigDecimal(1);
+    private static final BigDecimal UPDATED_MONTANT_RESTANT = new BigDecimal(2);
 
     @Autowired
     private FournisseurRepository fournisseurRepository;
@@ -101,7 +105,8 @@ public class FournisseurResourceIntTest {
             .matricule(DEFAULT_MATRICULE)
             .codePostal(DEFAULT_CODE_POSTAL)
             .adresse(DEFAULT_ADRESSE)
-            .telephone(DEFAULT_TELEPHONE);
+            .telephone(DEFAULT_TELEPHONE)
+            .montantRestant(DEFAULT_MONTANT_RESTANT);
         return fournisseur;
     }
 
@@ -131,6 +136,7 @@ public class FournisseurResourceIntTest {
         assertThat(testFournisseur.getCodePostal()).isEqualTo(DEFAULT_CODE_POSTAL);
         assertThat(testFournisseur.getAdresse()).isEqualTo(DEFAULT_ADRESSE);
         assertThat(testFournisseur.getTelephone()).isEqualTo(DEFAULT_TELEPHONE);
+        assertThat(testFournisseur.getMontantRestant()).isEqualTo(DEFAULT_MONTANT_RESTANT);
     }
 
     @Test
@@ -168,7 +174,8 @@ public class FournisseurResourceIntTest {
             .andExpect(jsonPath("$.[*].matricule").value(hasItem(DEFAULT_MATRICULE.toString())))
             .andExpect(jsonPath("$.[*].codePostal").value(hasItem(DEFAULT_CODE_POSTAL.toString())))
             .andExpect(jsonPath("$.[*].adresse").value(hasItem(DEFAULT_ADRESSE.toString())))
-            .andExpect(jsonPath("$.[*].telephone").value(hasItem(DEFAULT_TELEPHONE.toString())));
+            .andExpect(jsonPath("$.[*].telephone").value(hasItem(DEFAULT_TELEPHONE.toString())))
+            .andExpect(jsonPath("$.[*].montantRestant").value(hasItem(DEFAULT_MONTANT_RESTANT.intValue())));
     }
     
 
@@ -188,7 +195,8 @@ public class FournisseurResourceIntTest {
             .andExpect(jsonPath("$.matricule").value(DEFAULT_MATRICULE.toString()))
             .andExpect(jsonPath("$.codePostal").value(DEFAULT_CODE_POSTAL.toString()))
             .andExpect(jsonPath("$.adresse").value(DEFAULT_ADRESSE.toString()))
-            .andExpect(jsonPath("$.telephone").value(DEFAULT_TELEPHONE.toString()));
+            .andExpect(jsonPath("$.telephone").value(DEFAULT_TELEPHONE.toString()))
+            .andExpect(jsonPath("$.montantRestant").value(DEFAULT_MONTANT_RESTANT.intValue()));
     }
     @Test
     @Transactional
@@ -216,7 +224,8 @@ public class FournisseurResourceIntTest {
             .matricule(UPDATED_MATRICULE)
             .codePostal(UPDATED_CODE_POSTAL)
             .adresse(UPDATED_ADRESSE)
-            .telephone(UPDATED_TELEPHONE);
+            .telephone(UPDATED_TELEPHONE)
+            .montantRestant(UPDATED_MONTANT_RESTANT);
 
         restFournisseurMockMvc.perform(put("/api/fournisseurs")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -233,6 +242,7 @@ public class FournisseurResourceIntTest {
         assertThat(testFournisseur.getCodePostal()).isEqualTo(UPDATED_CODE_POSTAL);
         assertThat(testFournisseur.getAdresse()).isEqualTo(UPDATED_ADRESSE);
         assertThat(testFournisseur.getTelephone()).isEqualTo(UPDATED_TELEPHONE);
+        assertThat(testFournisseur.getMontantRestant()).isEqualTo(UPDATED_MONTANT_RESTANT);
     }
 
     @Test

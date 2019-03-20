@@ -31,7 +31,7 @@
       "fieldType": "String"
     },
     {
-      "fieldName": "tVa",
+      "fieldName": "tva",
       "fieldType": "Integer"
     },
     {

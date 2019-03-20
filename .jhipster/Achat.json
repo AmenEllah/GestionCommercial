@@ -32,6 +32,10 @@
     {
       "fieldName": "totalPrix",
       "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "montantRestant",
+      "fieldType": "BigDecimal"
     }
   ],
   "changelogDate": "20190314222413",

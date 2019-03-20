@@ -32,6 +32,10 @@
     {
       "fieldName": "telephone",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "montantRestant",
+      "fieldType": "BigDecimal"
     }
   ],
   "changelogDate": "20190314222409",

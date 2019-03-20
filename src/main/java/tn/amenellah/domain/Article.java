@@ -34,8 +34,8 @@ public class Article implements Serializable {
     @Column(name = "libelle")
     private String libelle;
 
-    @Column(name = "t_va")
-    private Integer tVa;
+    @Column(name = "tva")
+    private Integer tva;
 
     @Column(name = "unite")
     private String unite;
@@ -100,17 +100,17 @@ public class Article implements Serializable {
         this.libelle = libelle;
     }
 
-    public Integer gettVa() {
-        return tVa;
+    public Integer getTva() {
+        return tva;
     }
 
-    public Article tVa(Integer tVa) {
-        this.tVa = tVa;
+    public Article tva(Integer tva) {
+        this.tva = tva;
         return this;
     }
 
-    public void settVa(Integer tVa) {
-        this.tVa = tVa;
+    public void setTva(Integer tva) {
+        this.tva = tva;
     }
 
     public String getUnite() {
@@ -268,7 +268,7 @@ public class Article implements Serializable {
             "id=" + getId() +
             ", code='" + getCode() + "'" +
             ", libelle='" + getLibelle() + "'" +
-            ", tVa=" + gettVa() +
+            ", tva=" + getTva() +
             ", unite='" + getUnite() + "'" +
             ", prix=" + getPrix() +
             ", totalVente=" + getTotalVente() +
