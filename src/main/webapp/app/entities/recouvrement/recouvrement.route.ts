@@ -60,6 +60,18 @@ export const recouvrementRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
+        path: 'recouvrement/new/:idR',
+        component: RecouvrementUpdateComponent,
+        resolve: {
+            recouvrement: RecouvrementResolve
+        },
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'gestionApp.recouvrement.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    },
+    {
         path: 'recouvrement/:id/edit',
         component: RecouvrementUpdateComponent,
         resolve: {

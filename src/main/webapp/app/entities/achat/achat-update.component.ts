@@ -18,6 +18,7 @@ import { FournisseurService } from 'app/entities/fournisseur';
 export class AchatUpdateComponent implements OnInit {
     private _achat: IAchat;
     isSaving: boolean;
+    totalPrixAncien: number;
 
     articles: IArticle[];
 
@@ -49,6 +50,7 @@ export class AchatUpdateComponent implements OnInit {
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
+        this.totalPrixAncien = this.achat.totalPrix;
     }
 
     previousState() {
@@ -57,9 +59,26 @@ export class AchatUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+        this.achat.totalPrix = this.achat.quantite * this.achat.article.prix;
+
+        this.articleService.find(this.achat.article.id).subscribe((data: HttpResponse<IArticle>) => {
+            data.body.totalAchat += this.achat.quantite;
+            this.articleService.update(data.body).subscribe();
+        });
+
         if (this.achat.id !== undefined) {
+            this.achat.montantRestant = this.achat.totalPrix;
+            this.fournisseurService.find(this.achat.fournisseur.id).subscribe((data: HttpResponse<IFournisseur>) => {
+                data.body.montantRestant += this.achat.totalPrix - this.totalPrixAncien;
+                this.fournisseurService.update(data.body).subscribe();
+            });
             this.subscribeToSaveResponse(this.achatService.update(this.achat));
         } else {
+            this.achat.montantRestant = this.achat.totalPrix;
+            this.fournisseurService.find(this.achat.fournisseur.id).subscribe((data: HttpResponse<IFournisseur>) => {
+                data.body.montantRestant += this.achat.totalPrix;
+                this.fournisseurService.update(data.body).subscribe();
+            });
             this.subscribeToSaveResponse(this.achatService.create(this.achat));
         }
     }

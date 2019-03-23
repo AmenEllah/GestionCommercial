@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { JhiAlertService } from 'ng-jhipster';
@@ -8,6 +8,8 @@ import { IRecouvrement } from 'app/shared/model/recouvrement.model';
 import { RecouvrementService } from './recouvrement.service';
 import { IVente } from 'app/shared/model/vente.model';
 import { VenteService } from 'app/entities/vente';
+import { IClient } from 'app/shared/model/client.model';
+import { ClientService } from '../client';
 
 @Component({
     selector: 'jhi-recouvrement-update',
@@ -19,15 +21,23 @@ export class RecouvrementUpdateComponent implements OnInit {
 
     ventes: IVente[];
     dateRecDp: any;
+    client: any;
+    montantAncien: number;
+    vente: any;
+    new: boolean;
+    id: number;
 
     constructor(
         private jhiAlertService: JhiAlertService,
         private recouvrementService: RecouvrementService,
         private venteService: VenteService,
-        private activatedRoute: ActivatedRoute
+        private activatedRoute: ActivatedRoute,
+        private clientService: ClientService
     ) {}
 
     ngOnInit() {
+        this.new = true;
+
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ recouvrement }) => {
             this.recouvrement = recouvrement;
@@ -38,6 +48,19 @@ export class RecouvrementUpdateComponent implements OnInit {
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
+
+        this.activatedRoute.params.subscribe((params: Params) => {
+            this.id = +params['idR'];
+            if (this.id) {
+                this.venteService.find(this.id).subscribe((res: HttpResponse<IVente>) => {
+                    this.vente = res.body;
+                    this.recouvrement.vente = this.vente;
+                    this.new = false;
+                });
+            }
+        });
+
+        this.montantAncien = this.recouvrement.montant;
     }
 
     previousState() {
@@ -46,9 +69,28 @@ export class RecouvrementUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+
         if (this.recouvrement.id !== undefined) {
+            this.venteService.find(this.recouvrement.vente.id).subscribe((data: HttpResponse<IVente>) => {
+                this.vente = data.body;
+                this.vente.montantRestant -= this.recouvrement.montant - this.montantAncien;
+                this.venteService.update(this.vente).subscribe();
+            });
+
+            this.clientService.find(this.recouvrement.vente.client.id).subscribe((data: HttpResponse<IClient>) => {
+                this.client = data.body;
+                this.client.montantRestant -= this.recouvrement.montant - this.montantAncien;
+                this.clientService.update(this.client).subscribe();
+            });
             this.subscribeToSaveResponse(this.recouvrementService.update(this.recouvrement));
         } else {
+            this.clientService.find(this.recouvrement.vente.client.id).subscribe((data: HttpResponse<IClient>) => {
+                this.client = data.body;
+                this.client.montantRestant -= this.recouvrement.montant;
+                this.clientService.update(this.client).subscribe();
+            });
+            this.vente.montantRestant = this.vente.montantRestant - this.recouvrement.montant;
+            this.venteService.update(this.vente).subscribe();
             this.subscribeToSaveResponse(this.recouvrementService.create(this.recouvrement));
         }
     }

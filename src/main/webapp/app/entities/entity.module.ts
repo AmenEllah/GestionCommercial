@@ -8,6 +8,8 @@ import { GestionReglementModule } from './reglement/reglement.module';
 import { GestionRecouvrementModule } from './recouvrement/recouvrement.module';
 import { GestionAchatModule } from './achat/achat.module';
 import { GestionVenteModule } from './vente/vente.module';
+import { InvoiceComponent } from './invoice/invoice.component';
+import { GestionInvoiceModule } from './invoice/invoice.module';
 /* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
@@ -21,6 +23,7 @@ import { GestionVenteModule } from './vente/vente.module';
         GestionRecouvrementModule,
         GestionAchatModule,
         GestionVenteModule,
+        GestionInvoiceModule
         /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],

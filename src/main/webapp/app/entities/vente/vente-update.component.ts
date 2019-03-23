@@ -23,6 +23,7 @@ export class VenteUpdateComponent implements OnInit {
 
     clients: IClient[];
     dateVenteDp: any;
+    totalPrixAncien: number;
 
     constructor(
         private jhiAlertService: JhiAlertService,
@@ -57,9 +58,26 @@ export class VenteUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+        this.vente.totalPrix = this.vente.quantite * this.vente.article.prix;
+
+        this.articleService.find(this.vente.article.id).subscribe((data: HttpResponse<IArticle>) => {
+            data.body.totalVente += this.vente.quantite;
+            this.articleService.update(data.body).subscribe();
+        });
+
         if (this.vente.id !== undefined) {
+            this.vente.montantRestant = this.vente.totalPrix;
+            this.clientService.find(this.vente.client.id).subscribe((data: HttpResponse<IClient>) => {
+                data.body.montantRestant += this.vente.totalPrix - this.totalPrixAncien;
+                this.clientService.update(data.body).subscribe();
+            });
             this.subscribeToSaveResponse(this.venteService.update(this.vente));
         } else {
+            this.vente.montantRestant = this.vente.totalPrix;
+            this.clientService.find(this.vente.client.id).subscribe((data: HttpResponse<IClient>) => {
+                data.body.montantRestant += this.vente.totalPrix;
+                this.clientService.update(data.body).subscribe();
+            });
             this.subscribeToSaveResponse(this.venteService.create(this.vente));
         }
     }

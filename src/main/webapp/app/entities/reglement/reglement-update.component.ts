@@ -8,6 +8,8 @@ import { IReglement } from 'app/shared/model/reglement.model';
 import { ReglementService } from './reglement.service';
 import { IAchat } from 'app/shared/model/achat.model';
 import { AchatService } from 'app/entities/achat';
+import { FournisseurService } from '../fournisseur';
+import { IFournisseur } from 'app/shared/model/fournisseur.model';
 
 @Component({
     selector: 'jhi-reglement-update',
@@ -17,8 +19,11 @@ export class ReglementUpdateComponent implements OnInit {
     private _reglement: IReglement;
     isSaving: boolean;
     new: boolean;
+    montantAncien: number;
+    fournisseur: IFournisseur;
 
     achats: IAchat[];
+    achat: IAchat;
     dateRecDp: any;
     id: number;
 
@@ -26,6 +31,7 @@ export class ReglementUpdateComponent implements OnInit {
         private jhiAlertService: JhiAlertService,
         private reglementService: ReglementService,
         private achatService: AchatService,
+        private fournisseurService: FournisseurService,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -46,11 +52,14 @@ export class ReglementUpdateComponent implements OnInit {
             this.id = +params['idA'];
             if (this.id) {
                 this.achatService.find(this.id).subscribe((res: HttpResponse<IAchat>) => {
-                    this.reglement.achat = res.body;
+                    this.achat = res.body;
+                    this.reglement.achat = this.achat;
                     this.new = false;
                 });
             }
         });
+
+        this.montantAncien = this.reglement.montant;
     }
 
     previousState() {
@@ -59,9 +68,28 @@ export class ReglementUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+
         if (this.reglement.id !== undefined) {
+            this.achatService.find(this.reglement.achat.id).subscribe((data: HttpResponse<IAchat>) => {
+                this.achat = data.body;
+                this.achat.montantRestant -= this.reglement.montant - this.montantAncien;
+                this.achatService.update(this.achat).subscribe();
+            });
+
+            this.fournisseurService.find(this.reglement.achat.fournisseur.id).subscribe((data: HttpResponse<IFournisseur>) => {
+                this.fournisseur = data.body;
+                this.fournisseur.montantRestant -= this.reglement.montant - this.montantAncien;
+                this.fournisseurService.update(this.fournisseur).subscribe();
+            });
             this.subscribeToSaveResponse(this.reglementService.update(this.reglement));
         } else {
+            this.fournisseurService.find(this.reglement.achat.fournisseur.id).subscribe((data: HttpResponse<IFournisseur>) => {
+                this.fournisseur = data.body;
+                this.fournisseur.montantRestant -= this.reglement.montant;
+                this.fournisseurService.update(this.fournisseur).subscribe();
+            });
+            this.achat.montantRestant = this.achat.montantRestant - this.reglement.montant;
+            this.achatService.update(this.achat).subscribe();
             this.subscribeToSaveResponse(this.reglementService.create(this.reglement));
         }
     }
