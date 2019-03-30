@@ -6,10 +6,10 @@ import { JhiAlertService } from 'ng-jhipster';
 
 import { IVente } from 'app/shared/model/vente.model';
 import { VenteService } from './vente.service';
-import { IArticle } from 'app/shared/model/article.model';
-import { ArticleService } from 'app/entities/article';
 import { IClient } from 'app/shared/model/client.model';
 import { ClientService } from 'app/entities/client';
+import { IFactureVente } from 'app/shared/model/facture-vente.model';
+import { FactureVenteService } from 'app/entities/facture-vente';
 
 @Component({
     selector: 'jhi-vente-update',
@@ -19,17 +19,16 @@ export class VenteUpdateComponent implements OnInit {
     private _vente: IVente;
     isSaving: boolean;
 
-    articles: IArticle[];
-
     clients: IClient[];
+
+    factureventes: IFactureVente[];
     dateVenteDp: any;
-    totalPrixAncien: number;
 
     constructor(
         private jhiAlertService: JhiAlertService,
         private venteService: VenteService,
-        private articleService: ArticleService,
         private clientService: ClientService,
+        private factureVenteService: FactureVenteService,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -38,15 +37,15 @@ export class VenteUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ vente }) => {
             this.vente = vente;
         });
-        this.articleService.query().subscribe(
-            (res: HttpResponse<IArticle[]>) => {
-                this.articles = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
         this.clientService.query().subscribe(
             (res: HttpResponse<IClient[]>) => {
                 this.clients = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        this.factureVenteService.query().subscribe(
+            (res: HttpResponse<IFactureVente[]>) => {
+                this.factureventes = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -58,26 +57,9 @@ export class VenteUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        this.vente.totalPrix = this.vente.quantite * this.vente.article.prix;
-
-        this.articleService.find(this.vente.article.id).subscribe((data: HttpResponse<IArticle>) => {
-            data.body.totalVente += this.vente.quantite;
-            this.articleService.update(data.body).subscribe();
-        });
-
         if (this.vente.id !== undefined) {
-            this.vente.montantRestant = this.vente.totalPrix;
-            this.clientService.find(this.vente.client.id).subscribe((data: HttpResponse<IClient>) => {
-                data.body.montantRestant += this.vente.totalPrix - this.totalPrixAncien;
-                this.clientService.update(data.body).subscribe();
-            });
             this.subscribeToSaveResponse(this.venteService.update(this.vente));
         } else {
-            this.vente.montantRestant = this.vente.totalPrix;
-            this.clientService.find(this.vente.client.id).subscribe((data: HttpResponse<IClient>) => {
-                data.body.montantRestant += this.vente.totalPrix;
-                this.clientService.update(data.body).subscribe();
-            });
             this.subscribeToSaveResponse(this.venteService.create(this.vente));
         }
     }
@@ -99,11 +81,11 @@ export class VenteUpdateComponent implements OnInit {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-    trackArticleById(index: number, item: IArticle) {
+    trackClientById(index: number, item: IClient) {
         return item.id;
     }
 
-    trackClientById(index: number, item: IClient) {
+    trackFactureVenteById(index: number, item: IFactureVente) {
         return item.id;
     }
     get vente() {

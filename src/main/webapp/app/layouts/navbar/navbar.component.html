@@ -77,6 +77,30 @@
                             <span jhiTranslate="global.menu.entities.vente">Vente</span>
                         </a>
                     </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="facture-achat" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon [icon]="'asterisk'" [fixedWidth]="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.factureAchat">Facture Achat</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="article-vente" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon [icon]="'asterisk'" [fixedWidth]="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.articleVente">Article Vente</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="article-achat" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon [icon]="'asterisk'" [fixedWidth]="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.articleAchat">Article Achat</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="facture-vente" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon [icon]="'asterisk'" [fixedWidth]="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.factureVente">Facture Vente</span>
+                        </a>
+                    </li>
                     <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
                 </ul>
             </li>

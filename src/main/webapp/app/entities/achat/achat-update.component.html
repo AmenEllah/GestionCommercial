@@ -10,11 +10,6 @@
                         [(ngModel)]="achat.id" readonly />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="gestionApp.achat.quantite" for="field_quantite">Quantite</label>
-                    <input type="number" class="form-control" name="quantite" id="field_quantite"
-                        [(ngModel)]="achat.quantite" />
-                </div>
-                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="gestionApp.achat.dateAchat" for="field_dateAchat">Date Achat</label>
                     <div class="input-group">
                         <input id="field_dateAchat" type="text" class="form-control" name="dateAchat" ngbDatepicker  #dateAchatDp="ngbDatepicker" [(ngModel)]="achat.dateAchat"
@@ -24,14 +19,17 @@
                         </span>
                     </div>
                 </div>
-
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="gestionApp.achat.article" for="field_article">Article</label>
-                    <select class="form-control" id="field_article" name="article" [(ngModel)]="achat.article" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="articleOption.id === achat.article?.id ? achat.article : articleOption" *ngFor="let articleOption of articles; trackBy: trackArticleById">{{articleOption.code}}</option>
-                    </select>
+                    <label class="form-control-label" jhiTranslate="gestionApp.achat.totalPrix" for="field_totalPrix">Total Prix</label>
+                    <input type="number" class="form-control" name="totalPrix" id="field_totalPrix"
+                        [(ngModel)]="achat.totalPrix" />
                 </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gestionApp.achat.montantRestant" for="field_montantRestant">Montant Restant</label>
+                    <input type="number" class="form-control" name="montantRestant" id="field_montantRestant"
+                        [(ngModel)]="achat.montantRestant" />
+                </div>
+
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="gestionApp.achat.fournisseur" for="field_fournisseur">Fournisseur</label>
                     <select class="form-control" id="field_fournisseur" name="fournisseur" [(ngModel)]="achat.fournisseur" >

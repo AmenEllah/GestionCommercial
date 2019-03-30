@@ -15,19 +15,27 @@
                         [(ngModel)]="reglement.montant" />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="gestionApp.reglement.dateRec" for="field_dateRec">Date Rec</label>
+                    <label class="form-control-label" jhiTranslate="gestionApp.reglement.dateReg" for="field_dateReg">Date Reg</label>
                     <div class="input-group">
-                        <input id="field_dateRec" type="text" class="form-control" name="dateRec" ngbDatepicker  #dateRecDp="ngbDatepicker" [(ngModel)]="reglement.dateRec"
+                        <input id="field_dateReg" type="text" class="form-control" name="dateReg" ngbDatepicker  #dateRegDp="ngbDatepicker" [(ngModel)]="reglement.dateReg"
                         />
                         <span class="input-group-append">
-                            <button type="button" class="btn btn-secondary" (click)="dateRecDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                            <button type="button" class="btn btn-secondary" (click)="dateRegDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
                         </span>
                     </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gestionApp.reglement.modeReglement" for="field_modeReglement">Mode Reglement</label>
+                    <select class="form-control" name="modeReglement" [(ngModel)]="reglement.modeReglement" id="field_modeReglement" >
+                        <option value="CHÈQUES">{{'gestionApp.EnumModePaiement.CHÈQUES' | translate}}</option>
+                        <option value="ESPÈCES">{{'gestionApp.EnumModePaiement.ESPÈCES' | translate}}</option>
+                        <option value="CARTE_BANQUAIRE">{{'gestionApp.EnumModePaiement.CARTE_BANQUAIRE' | translate}}</option>
+                    </select>
                 </div>
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="gestionApp.reglement.achat" for="field_achat">Achat</label>
-                    <select [disabled]="!new" class="form-control" id="field_achat" name="achat" [(ngModel)]="reglement.achat"  required>
+                    <select class="form-control" id="field_achat" name="achat" [(ngModel)]="reglement.achat"  required>
                         <option *ngIf="!editForm.value.achat" [ngValue]="null" selected></option>
                         <option [ngValue]="achatOption.id === reglement.achat?.id ? reglement.achat : achatOption" *ngFor="let achatOption of achats; trackBy: trackAchatById">{{achatOption.id}}</option>
                     </select>

@@ -42,9 +42,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = GestionApp.class)
 public class AchatResourceIntTest {
 
-    private static final Integer DEFAULT_QUANTITE = 1;
-    private static final Integer UPDATED_QUANTITE = 2;
-
     private static final LocalDate DEFAULT_DATE_ACHAT = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_DATE_ACHAT = LocalDate.now(ZoneId.systemDefault());
 
@@ -93,7 +90,6 @@ public class AchatResourceIntTest {
      */
     public static Achat createEntity(EntityManager em) {
         Achat achat = new Achat()
-            .quantite(DEFAULT_QUANTITE)
             .dateAchat(DEFAULT_DATE_ACHAT)
             .totalPrix(DEFAULT_TOTAL_PRIX)
             .montantRestant(DEFAULT_MONTANT_RESTANT);
@@ -120,7 +116,6 @@ public class AchatResourceIntTest {
         List<Achat> achatList = achatRepository.findAll();
         assertThat(achatList).hasSize(databaseSizeBeforeCreate + 1);
         Achat testAchat = achatList.get(achatList.size() - 1);
-        assertThat(testAchat.getQuantite()).isEqualTo(DEFAULT_QUANTITE);
         assertThat(testAchat.getDateAchat()).isEqualTo(DEFAULT_DATE_ACHAT);
         assertThat(testAchat.getTotalPrix()).isEqualTo(DEFAULT_TOTAL_PRIX);
         assertThat(testAchat.getMontantRestant()).isEqualTo(DEFAULT_MONTANT_RESTANT);
@@ -156,7 +151,6 @@ public class AchatResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(achat.getId().intValue())))
-            .andExpect(jsonPath("$.[*].quantite").value(hasItem(DEFAULT_QUANTITE)))
             .andExpect(jsonPath("$.[*].dateAchat").value(hasItem(DEFAULT_DATE_ACHAT.toString())))
             .andExpect(jsonPath("$.[*].totalPrix").value(hasItem(DEFAULT_TOTAL_PRIX.intValue())))
             .andExpect(jsonPath("$.[*].montantRestant").value(hasItem(DEFAULT_MONTANT_RESTANT.intValue())));
@@ -174,7 +168,6 @@ public class AchatResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(achat.getId().intValue()))
-            .andExpect(jsonPath("$.quantite").value(DEFAULT_QUANTITE))
             .andExpect(jsonPath("$.dateAchat").value(DEFAULT_DATE_ACHAT.toString()))
             .andExpect(jsonPath("$.totalPrix").value(DEFAULT_TOTAL_PRIX.intValue()))
             .andExpect(jsonPath("$.montantRestant").value(DEFAULT_MONTANT_RESTANT.intValue()));
@@ -200,7 +193,6 @@ public class AchatResourceIntTest {
         // Disconnect from session so that the updates on updatedAchat are not directly saved in db
         em.detach(updatedAchat);
         updatedAchat
-            .quantite(UPDATED_QUANTITE)
             .dateAchat(UPDATED_DATE_ACHAT)
             .totalPrix(UPDATED_TOTAL_PRIX)
             .montantRestant(UPDATED_MONTANT_RESTANT);
@@ -214,7 +206,6 @@ public class AchatResourceIntTest {
         List<Achat> achatList = achatRepository.findAll();
         assertThat(achatList).hasSize(databaseSizeBeforeUpdate);
         Achat testAchat = achatList.get(achatList.size() - 1);
-        assertThat(testAchat.getQuantite()).isEqualTo(UPDATED_QUANTITE);
         assertThat(testAchat.getDateAchat()).isEqualTo(UPDATED_DATE_ACHAT);
         assertThat(testAchat.getTotalPrix()).isEqualTo(UPDATED_TOTAL_PRIX);
         assertThat(testAchat.getMontantRestant()).isEqualTo(UPDATED_MONTANT_RESTANT);

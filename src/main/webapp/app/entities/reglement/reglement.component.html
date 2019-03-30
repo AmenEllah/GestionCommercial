@@ -16,9 +16,9 @@
             <tr>
             <th><span jhiTranslate="global.field.id">ID</span></th>
             <th><span jhiTranslate="gestionApp.reglement.montant">Montant</span></th>
-            <th><span jhiTranslate="gestionApp.reglement.dateRec">Date Rec</span></th>
+            <th><span jhiTranslate="gestionApp.reglement.dateReg">Date Reg</span></th>
+            <th><span jhiTranslate="gestionApp.reglement.modeReglement">Mode Reglement</span></th>
             <th><span jhiTranslate="gestionApp.reglement.achat">Achat</span></th>
-            <th><span jhiTranslate="gestionApp.achat.fournisseur">Fournisseur</span></th>
             <th></th>
             </tr>
             </thead>
@@ -26,15 +26,11 @@
             <tr *ngFor="let reglement of reglements ;trackBy: trackId">
                 <td><a [routerLink]="['/reglement', reglement.id, 'view' ]">{{reglement.id}}</a></td>
                 <td>{{reglement.montant}}</td>
-                <td>{{reglement.dateRec | date:'mediumDate'}}</td>
+                <td>{{reglement.dateReg | date:'mediumDate'}}</td>
+                <td jhiTranslate="{{'gestionApp.EnumModePaiement.' + reglement.modeReglement}}">{{reglement.modeReglement}}</td>
                 <td>
                     <div *ngIf="reglement.achat">
                         <a [routerLink]="['../achat', reglement.achat?.id, 'view' ]" >{{reglement.achat?.id}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="reglement.achat">
-<a [routerLink]="['../fournisseur', reglement.achat?.fournisseur.id, 'view' ]">{{reglement.achat?.fournisseur.nom}}</a>
                     </div>
                 </td>
                 <td class="text-right">

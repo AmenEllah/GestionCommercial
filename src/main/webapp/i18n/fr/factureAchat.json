@@ -1,0 +1,22 @@
+
+{
+    "gestionApp": {
+        "factureAchat" : {
+            "home": {
+                "title": "FactureAchats",
+                "createLabel": "Créer un nouveau Facture Achat",
+                "createOrEditLabel": "Créer ou éditer un Facture Achat"
+            },
+            "created": "Un nouveau Facture Achat a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Facture Achat avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Facture Achat avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Facture Achat {{ id }} ?"
+            },
+            "detail": {
+                "title": "Facture Achat"
+            },
+            "achat": "Achat"
+        }
+    }
+}

@@ -54,11 +54,11 @@ public class Article implements Serializable {
 
     @OneToMany(mappedBy = "article")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Achat> achats = new HashSet<>();
+    private Set<ArticleVente> articleVentes = new HashSet<>();
 
     @OneToMany(mappedBy = "article")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Vente> ventes = new HashSet<>();
+    private Set<ArticleAchat> articleAchats = new HashSet<>();
 
     @ManyToOne(optional = false)
     @NotNull
@@ -178,54 +178,54 @@ public class Article implements Serializable {
         this.stockInitiale = stockInitiale;
     }
 
-    public Set<Achat> getAchats() {
-        return achats;
+    public Set<ArticleVente> getArticleVentes() {
+        return articleVentes;
     }
 
-    public Article achats(Set<Achat> achats) {
-        this.achats = achats;
+    public Article articleVentes(Set<ArticleVente> articleVentes) {
+        this.articleVentes = articleVentes;
         return this;
     }
 
-    public Article addAchat(Achat achat) {
-        this.achats.add(achat);
-        achat.setArticle(this);
+    public Article addArticleVente(ArticleVente articleVente) {
+        this.articleVentes.add(articleVente);
+        articleVente.setArticle(this);
         return this;
     }
 
-    public Article removeAchat(Achat achat) {
-        this.achats.remove(achat);
-        achat.setArticle(null);
+    public Article removeArticleVente(ArticleVente articleVente) {
+        this.articleVentes.remove(articleVente);
+        articleVente.setArticle(null);
         return this;
     }
 
-    public void setAchats(Set<Achat> achats) {
-        this.achats = achats;
+    public void setArticleVentes(Set<ArticleVente> articleVentes) {
+        this.articleVentes = articleVentes;
     }
 
-    public Set<Vente> getVentes() {
-        return ventes;
+    public Set<ArticleAchat> getArticleAchats() {
+        return articleAchats;
     }
 
-    public Article ventes(Set<Vente> ventes) {
-        this.ventes = ventes;
+    public Article articleAchats(Set<ArticleAchat> articleAchats) {
+        this.articleAchats = articleAchats;
         return this;
     }
 
-    public Article addVente(Vente vente) {
-        this.ventes.add(vente);
-        vente.setArticle(this);
+    public Article addArticleAchat(ArticleAchat articleAchat) {
+        this.articleAchats.add(articleAchat);
+        articleAchat.setArticle(this);
         return this;
     }
 
-    public Article removeVente(Vente vente) {
-        this.ventes.remove(vente);
-        vente.setArticle(null);
+    public Article removeArticleAchat(ArticleAchat articleAchat) {
+        this.articleAchats.remove(articleAchat);
+        articleAchat.setArticle(null);
         return this;
     }
 
-    public void setVentes(Set<Vente> ventes) {
-        this.ventes = ventes;
+    public void setArticleAchats(Set<ArticleAchat> articleAchats) {
+        this.articleAchats = articleAchats;
     }
 
     public Famille getFamille() {

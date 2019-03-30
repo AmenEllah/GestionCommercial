@@ -51,19 +51,19 @@ export class ReglementService {
 
     private convertDateFromClient(reglement: IReglement): IReglement {
         const copy: IReglement = Object.assign({}, reglement, {
-            dateRec: reglement.dateRec != null && reglement.dateRec.isValid() ? reglement.dateRec.format(DATE_FORMAT) : null
+            dateReg: reglement.dateReg != null && reglement.dateReg.isValid() ? reglement.dateReg.format(DATE_FORMAT) : null
         });
         return copy;
     }
 
     private convertDateFromServer(res: EntityResponseType): EntityResponseType {
-        res.body.dateRec = res.body.dateRec != null ? moment(res.body.dateRec) : null;
+        res.body.dateReg = res.body.dateReg != null ? moment(res.body.dateReg) : null;
         return res;
     }
 
     private convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
         res.body.forEach((reglement: IReglement) => {
-            reglement.dateRec = reglement.dateRec != null ? moment(reglement.dateRec) : null;
+            reglement.dateReg = reglement.dateReg != null ? moment(reglement.dateReg) : null;
         });
         return res;
     }

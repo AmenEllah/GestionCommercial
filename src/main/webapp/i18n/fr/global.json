@@ -15,6 +15,10 @@
                 "recouvrement": "Recouvrement",
                 "achat": "Achat",
                 "vente": "Vente",
+                "factureAchat": "Facture Achat",
+                "articleVente": "Article Vente",
+                "articleAchat": "Article Achat",
+                "factureVente": "Facture Vente",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

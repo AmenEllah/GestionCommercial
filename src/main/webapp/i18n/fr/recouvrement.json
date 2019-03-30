@@ -18,6 +18,7 @@
             },
             "montant": "Montant",
             "dateRec": "Date Rec",
+            "modeRecouvrement": "Mode Recouvrement",
             "vente": "Vente"
         }
     }

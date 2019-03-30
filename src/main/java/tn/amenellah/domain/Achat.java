@@ -28,9 +28,6 @@ public class Achat implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "quantite")
-    private Integer quantite;
-
     @Column(name = "date_achat")
     private LocalDate dateAchat;
 
@@ -44,13 +41,17 @@ public class Achat implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Reglement> reglements = new HashSet<>();
 
-    @ManyToOne
-    @JsonIgnoreProperties("achats")
-    private Article article;
+    @OneToMany(mappedBy = "achat")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<ArticleAchat> articleAchats = new HashSet<>();
 
     @ManyToOne
     @JsonIgnoreProperties("achats")
     private Fournisseur fournisseur;
+
+    @OneToOne(mappedBy = "achat")
+    @JsonIgnore
+    private FactureAchat factureAchat;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -59,19 +60,6 @@ public class Achat implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getQuantite() {
-        return quantite;
-    }
-
-    public Achat quantite(Integer quantite) {
-        this.quantite = quantite;
-        return this;
-    }
-
-    public void setQuantite(Integer quantite) {
-        this.quantite = quantite;
     }
 
     public LocalDate getDateAchat() {
@@ -138,17 +126,29 @@ public class Achat implements Serializable {
         this.reglements = reglements;
     }
 
-    public Article getArticle() {
-        return article;
+    public Set<ArticleAchat> getArticleAchats() {
+        return articleAchats;
     }
 
-    public Achat article(Article article) {
-        this.article = article;
+    public Achat articleAchats(Set<ArticleAchat> articleAchats) {
+        this.articleAchats = articleAchats;
         return this;
     }
 
-    public void setArticle(Article article) {
-        this.article = article;
+    public Achat addArticleAchat(ArticleAchat articleAchat) {
+        this.articleAchats.add(articleAchat);
+        articleAchat.setAchat(this);
+        return this;
+    }
+
+    public Achat removeArticleAchat(ArticleAchat articleAchat) {
+        this.articleAchats.remove(articleAchat);
+        articleAchat.setAchat(null);
+        return this;
+    }
+
+    public void setArticleAchats(Set<ArticleAchat> articleAchats) {
+        this.articleAchats = articleAchats;
     }
 
     public Fournisseur getFournisseur() {
@@ -162,6 +162,19 @@ public class Achat implements Serializable {
 
     public void setFournisseur(Fournisseur fournisseur) {
         this.fournisseur = fournisseur;
+    }
+
+    public FactureAchat getFactureAchat() {
+        return factureAchat;
+    }
+
+    public Achat factureAchat(FactureAchat factureAchat) {
+        this.factureAchat = factureAchat;
+        return this;
+    }
+
+    public void setFactureAchat(FactureAchat factureAchat) {
+        this.factureAchat = factureAchat;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -189,7 +202,6 @@ public class Achat implements Serializable {
     public String toString() {
         return "Achat{" +
             "id=" + getId() +
-            ", quantite=" + getQuantite() +
             ", dateAchat='" + getDateAchat() + "'" +
             ", totalPrix=" + getTotalPrix() +
             ", montantRestant=" + getMontantRestant() +

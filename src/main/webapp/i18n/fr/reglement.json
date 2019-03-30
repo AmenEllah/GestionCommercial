@@ -17,7 +17,8 @@
                 "title": "Reglement"
             },
             "montant": "Montant",
-            "dateRec": "Date Rec",
+            "dateReg": "Date Reg",
+            "modeReglement": "Mode Reglement",
             "achat": "Achat"
         }
     }

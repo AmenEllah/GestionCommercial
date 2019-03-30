@@ -1,0 +1,10 @@
+{
+    "gestionApp": {
+        "EnumModePaiement" : {
+            "null": "",
+            "CHÈQUES": "CHÈQUES",
+            "ESPÈCES": "ESPÈCES",
+            "CARTE_BANQUAIRE": "CARTE_BANQUAIRE"
+        }
+    }
+}

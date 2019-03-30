@@ -28,9 +28,6 @@ public class Vente implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "quantite")
-    private Integer quantite;
-
     @Column(name = "date_vente")
     private LocalDate dateVente;
 
@@ -44,13 +41,17 @@ public class Vente implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Recouvrement> recouvrements = new HashSet<>();
 
-    @ManyToOne
-    @JsonIgnoreProperties("ventes")
-    private Article article;
+    @OneToMany(mappedBy = "vente")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<ArticleVente> articleVentes = new HashSet<>();
 
     @ManyToOne
     @JsonIgnoreProperties("ventes")
     private Client client;
+
+    @OneToOne(mappedBy = "vente")
+    @JsonIgnore
+    private FactureVente factureVente;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -59,19 +60,6 @@ public class Vente implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getQuantite() {
-        return quantite;
-    }
-
-    public Vente quantite(Integer quantite) {
-        this.quantite = quantite;
-        return this;
-    }
-
-    public void setQuantite(Integer quantite) {
-        this.quantite = quantite;
     }
 
     public LocalDate getDateVente() {
@@ -138,17 +126,29 @@ public class Vente implements Serializable {
         this.recouvrements = recouvrements;
     }
 
-    public Article getArticle() {
-        return article;
+    public Set<ArticleVente> getArticleVentes() {
+        return articleVentes;
     }
 
-    public Vente article(Article article) {
-        this.article = article;
+    public Vente articleVentes(Set<ArticleVente> articleVentes) {
+        this.articleVentes = articleVentes;
         return this;
     }
 
-    public void setArticle(Article article) {
-        this.article = article;
+    public Vente addArticleVente(ArticleVente articleVente) {
+        this.articleVentes.add(articleVente);
+        articleVente.setVente(this);
+        return this;
+    }
+
+    public Vente removeArticleVente(ArticleVente articleVente) {
+        this.articleVentes.remove(articleVente);
+        articleVente.setVente(null);
+        return this;
+    }
+
+    public void setArticleVentes(Set<ArticleVente> articleVentes) {
+        this.articleVentes = articleVentes;
     }
 
     public Client getClient() {
@@ -162,6 +162,19 @@ public class Vente implements Serializable {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public FactureVente getFactureVente() {
+        return factureVente;
+    }
+
+    public Vente factureVente(FactureVente factureVente) {
+        this.factureVente = factureVente;
+        return this;
+    }
+
+    public void setFactureVente(FactureVente factureVente) {
+        this.factureVente = factureVente;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -189,7 +202,6 @@ public class Vente implements Serializable {
     public String toString() {
         return "Vente{" +
             "id=" + getId() +
-            ", quantite=" + getQuantite() +
             ", dateVente='" + getDateVente() + "'" +
             ", totalPrix=" + getTotalPrix() +
             ", montantRestant=" + getMontantRestant() +

@@ -1,0 +1,22 @@
+
+{
+    "gestionApp": {
+        "factureVente" : {
+            "home": {
+                "title": "Facture Ventes",
+                "createLabel": "Create a new Facture Vente",
+                "createOrEditLabel": "Create or edit a Facture Vente"
+            },
+            "created": "A new Facture Vente is created with identifier {{ param }}",
+            "updated": "A Facture Vente is updated with identifier {{ param }}",
+            "deleted": "A Facture Vente is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Facture Vente {{ id }}?"
+            },
+            "detail": {
+                "title": "Facture Vente"
+            },
+            "vente": "Vente"
+        }
+    }
+}

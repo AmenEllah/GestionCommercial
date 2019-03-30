@@ -6,9 +6,6 @@ import { JhiEventManager } from 'ng-jhipster';
 
 import { IAchat } from 'app/shared/model/achat.model';
 import { AchatService } from './achat.service';
-import { HttpResponse } from '@angular/common/http';
-import { ArticleService } from '../article';
-import { IArticle } from 'app/shared/model/article.model';
 
 @Component({
     selector: 'jhi-achat-delete-dialog',
@@ -17,24 +14,13 @@ import { IArticle } from 'app/shared/model/article.model';
 export class AchatDeleteDialogComponent {
     achat: IAchat;
 
-    constructor(
-        private achatService: AchatService,
-        public activeModal: NgbActiveModal,
-        private eventManager: JhiEventManager,
-        private articleService: ArticleService
-    ) {}
+    constructor(private achatService: AchatService, public activeModal: NgbActiveModal, private eventManager: JhiEventManager) {}
 
     clear() {
         this.activeModal.dismiss('cancel');
     }
 
     confirmDelete(id: number) {
-        this.achatService.find(id).subscribe((data: HttpResponse<IAchat>) => {
-            this.articleService.find(data.body.article.id).subscribe((dataArticle: HttpResponse<IArticle>) => {
-                dataArticle.body.totalAchat = dataArticle.body.totalAchat - data.body.quantite;
-                this.articleService.update(dataArticle.body).subscribe();
-            });
-        });
         this.achatService.delete(id).subscribe(response => {
             this.eventManager.broadcast({
                 name: 'achatListModification',

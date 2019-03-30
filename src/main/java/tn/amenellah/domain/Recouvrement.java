@@ -12,6 +12,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import tn.amenellah.domain.enumeration.EnumModePaiement;
+
 /**
  * A Recouvrement.
  */
@@ -31,6 +33,10 @@ public class Recouvrement implements Serializable {
 
     @Column(name = "date_rec")
     private LocalDate dateRec;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "mode_recouvrement")
+    private EnumModePaiement modeRecouvrement;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -70,6 +76,19 @@ public class Recouvrement implements Serializable {
 
     public void setDateRec(LocalDate dateRec) {
         this.dateRec = dateRec;
+    }
+
+    public EnumModePaiement getModeRecouvrement() {
+        return modeRecouvrement;
+    }
+
+    public Recouvrement modeRecouvrement(EnumModePaiement modeRecouvrement) {
+        this.modeRecouvrement = modeRecouvrement;
+        return this;
+    }
+
+    public void setModeRecouvrement(EnumModePaiement modeRecouvrement) {
+        this.modeRecouvrement = modeRecouvrement;
     }
 
     public Vente getVente() {
@@ -112,6 +131,7 @@ public class Recouvrement implements Serializable {
             "id=" + getId() +
             ", montant=" + getMontant() +
             ", dateRec='" + getDateRec() + "'" +
+            ", modeRecouvrement='" + getModeRecouvrement() + "'" +
             "}";
     }
 }

@@ -34,6 +34,7 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import tn.amenellah.domain.enumeration.EnumModePaiement;
 /**
  * Test class for the ReglementResource REST controller.
  *
@@ -46,8 +47,11 @@ public class ReglementResourceIntTest {
     private static final BigDecimal DEFAULT_MONTANT = new BigDecimal(1);
     private static final BigDecimal UPDATED_MONTANT = new BigDecimal(2);
 
-    private static final LocalDate DEFAULT_DATE_REC = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_DATE_REC = LocalDate.now(ZoneId.systemDefault());
+    private static final LocalDate DEFAULT_DATE_REG = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_DATE_REG = LocalDate.now(ZoneId.systemDefault());
+
+    private static final EnumModePaiement DEFAULT_MODE_REGLEMENT = EnumModePaiement.CHÈQUES;
+    private static final EnumModePaiement UPDATED_MODE_REGLEMENT = EnumModePaiement.ESPÈCES;
 
     @Autowired
     private ReglementRepository reglementRepository;
@@ -89,7 +93,8 @@ public class ReglementResourceIntTest {
     public static Reglement createEntity(EntityManager em) {
         Reglement reglement = new Reglement()
             .montant(DEFAULT_MONTANT)
-            .dateRec(DEFAULT_DATE_REC);
+            .dateReg(DEFAULT_DATE_REG)
+            .modeReglement(DEFAULT_MODE_REGLEMENT);
         // Add required entity
         Achat achat = AchatResourceIntTest.createEntity(em);
         em.persist(achat);
@@ -119,7 +124,8 @@ public class ReglementResourceIntTest {
         assertThat(reglementList).hasSize(databaseSizeBeforeCreate + 1);
         Reglement testReglement = reglementList.get(reglementList.size() - 1);
         assertThat(testReglement.getMontant()).isEqualTo(DEFAULT_MONTANT);
-        assertThat(testReglement.getDateRec()).isEqualTo(DEFAULT_DATE_REC);
+        assertThat(testReglement.getDateReg()).isEqualTo(DEFAULT_DATE_REG);
+        assertThat(testReglement.getModeReglement()).isEqualTo(DEFAULT_MODE_REGLEMENT);
     }
 
     @Test
@@ -153,7 +159,8 @@ public class ReglementResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(reglement.getId().intValue())))
             .andExpect(jsonPath("$.[*].montant").value(hasItem(DEFAULT_MONTANT.intValue())))
-            .andExpect(jsonPath("$.[*].dateRec").value(hasItem(DEFAULT_DATE_REC.toString())));
+            .andExpect(jsonPath("$.[*].dateReg").value(hasItem(DEFAULT_DATE_REG.toString())))
+            .andExpect(jsonPath("$.[*].modeReglement").value(hasItem(DEFAULT_MODE_REGLEMENT.toString())));
     }
     
 
@@ -169,7 +176,8 @@ public class ReglementResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(reglement.getId().intValue()))
             .andExpect(jsonPath("$.montant").value(DEFAULT_MONTANT.intValue()))
-            .andExpect(jsonPath("$.dateRec").value(DEFAULT_DATE_REC.toString()));
+            .andExpect(jsonPath("$.dateReg").value(DEFAULT_DATE_REG.toString()))
+            .andExpect(jsonPath("$.modeReglement").value(DEFAULT_MODE_REGLEMENT.toString()));
     }
     @Test
     @Transactional
@@ -193,7 +201,8 @@ public class ReglementResourceIntTest {
         em.detach(updatedReglement);
         updatedReglement
             .montant(UPDATED_MONTANT)
-            .dateRec(UPDATED_DATE_REC);
+            .dateReg(UPDATED_DATE_REG)
+            .modeReglement(UPDATED_MODE_REGLEMENT);
 
         restReglementMockMvc.perform(put("/api/reglements")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -205,7 +214,8 @@ public class ReglementResourceIntTest {
         assertThat(reglementList).hasSize(databaseSizeBeforeUpdate);
         Reglement testReglement = reglementList.get(reglementList.size() - 1);
         assertThat(testReglement.getMontant()).isEqualTo(UPDATED_MONTANT);
-        assertThat(testReglement.getDateRec()).isEqualTo(UPDATED_DATE_REC);
+        assertThat(testReglement.getDateReg()).isEqualTo(UPDATED_DATE_REG);
+        assertThat(testReglement.getModeReglement()).isEqualTo(UPDATED_MODE_REGLEMENT);
     }
 
     @Test

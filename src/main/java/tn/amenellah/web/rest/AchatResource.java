@@ -16,6 +16,8 @@ import java.net.URISyntaxException;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  * REST controller for managing Achat.
@@ -79,11 +81,19 @@ public class AchatResource {
     /**
      * GET  /achats : get all the achats.
      *
+     * @param filter the filter of the request
      * @return the ResponseEntity with status 200 (OK) and the list of achats in body
      */
     @GetMapping("/achats")
     @Timed
-    public List<Achat> getAllAchats() {
+    public List<Achat> getAllAchats(@RequestParam(required = false) String filter) {
+        if ("factureachat-is-null".equals(filter)) {
+            log.debug("REST request to get all Achats where factureAchat is null");
+            return StreamSupport
+                .stream(achatRepository.findAll().spliterator(), false)
+                .filter(achat -> achat.getFactureAchat() == null)
+                .collect(Collectors.toList());
+        }
         log.debug("REST request to get all Achats");
         return achatRepository.findAll();
     }

@@ -1,0 +1,29 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="factureVente">
+            <h2><span jhiTranslate="gestionApp.factureVente.detail.title">Facture Vente</span> {{factureVente.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="gestionApp.factureVente.vente">Vente</span></dt>
+                <dd>
+                    <div *ngIf="factureVente.vente">
+                        <a [routerLink]="['/vente', factureVente.vente?.id, 'view']">{{factureVente.vente?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/facture-vente', factureVente.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

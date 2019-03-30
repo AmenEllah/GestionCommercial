@@ -26,7 +26,11 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="date_rec" type="date">
+            <column name="date_reg" type="date">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="mode_reglement" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
 

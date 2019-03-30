@@ -1,0 +1,22 @@
+
+{
+    "gestionApp": {
+        "factureAchat" : {
+            "home": {
+                "title": "Facture Achats",
+                "createLabel": "Create a new Facture Achat",
+                "createOrEditLabel": "Create or edit a Facture Achat"
+            },
+            "created": "A new Facture Achat is created with identifier {{ param }}",
+            "updated": "A Facture Achat is updated with identifier {{ param }}",
+            "deleted": "A Facture Achat is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Facture Achat {{ id }}?"
+            },
+            "detail": {
+                "title": "Facture Achat"
+            },
+            "achat": "Achat"
+        }
+    }
+}

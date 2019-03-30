@@ -5,10 +5,6 @@
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="gestionApp.achat.quantite">Quantite</span></dt>
-                <dd>
-                    <span>{{achat.quantite}}</span>
-                </dd>
                 <dt><span jhiTranslate="gestionApp.achat.dateAchat">Date Achat</span></dt>
                 <dd>
                     <span>{{achat.dateAchat}}</span>
@@ -20,12 +16,6 @@
                 <dt><span jhiTranslate="gestionApp.achat.montantRestant">Montant Restant</span></dt>
                 <dd>
                     <span>{{achat.montantRestant}}</span>
-                </dd>
-                <dt><span jhiTranslate="gestionApp.achat.article">Article</span></dt>
-                <dd>
-                    <div *ngIf="achat.article">
-                        <a [routerLink]="['/article', achat.article?.id, 'view']">{{achat.article?.code}}</a>
-                    </div>
                 </dd>
                 <dt><span jhiTranslate="gestionApp.achat.fournisseur">Fournisseur</span></dt>
                 <dd>

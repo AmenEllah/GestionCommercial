@@ -8,23 +8,26 @@
       "otherEntityRelationshipName": "vente"
     },
     {
-      "relationshipType": "many-to-one",
-      "relationshipName": "article",
-      "otherEntityName": "article",
-      "otherEntityField": "code"
+      "relationshipType": "one-to-many",
+      "relationshipName": "articleVente",
+      "otherEntityName": "articleVente",
+      "otherEntityRelationshipName": "vente"
     },
     {
       "relationshipType": "many-to-one",
       "relationshipName": "client",
       "otherEntityName": "client",
       "otherEntityField": "nom"
+    },
+    {
+      "relationshipType": "one-to-one",
+      "relationshipName": "factureVente",
+      "otherEntityName": "factureVente",
+      "ownerSide": false,
+      "otherEntityRelationshipName": "vente"
     }
   ],
   "fields": [
-    {
-      "fieldName": "quantite",
-      "fieldType": "Integer"
-    },
     {
       "fieldName": "dateVente",
       "fieldType": "LocalDate"

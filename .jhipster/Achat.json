@@ -8,23 +8,26 @@
       "otherEntityRelationshipName": "achat"
     },
     {
-      "relationshipType": "many-to-one",
-      "relationshipName": "article",
-      "otherEntityName": "article",
-      "otherEntityField": "code"
+      "relationshipType": "one-to-many",
+      "relationshipName": "articleAchat",
+      "otherEntityName": "articleAchat",
+      "otherEntityRelationshipName": "achat"
     },
     {
       "relationshipType": "many-to-one",
       "relationshipName": "fournisseur",
       "otherEntityName": "fournisseur",
       "otherEntityField": "nom"
+    },
+    {
+      "relationshipType": "one-to-one",
+      "relationshipName": "factureAchat",
+      "otherEntityName": "factureAchat",
+      "ownerSide": false,
+      "otherEntityRelationshipName": "achat"
     }
   ],
   "fields": [
-    {
-      "fieldName": "quantite",
-      "fieldType": "Integer"
-    },
     {
       "fieldName": "dateAchat",
       "fieldType": "LocalDate"

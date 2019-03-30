@@ -3,14 +3,14 @@
   "relationships": [
     {
       "relationshipType": "one-to-many",
-      "relationshipName": "achat",
-      "otherEntityName": "achat",
+      "relationshipName": "articleVente",
+      "otherEntityName": "articleVente",
       "otherEntityRelationshipName": "article"
     },
     {
       "relationshipType": "one-to-many",
-      "relationshipName": "vente",
-      "otherEntityName": "vente",
+      "relationshipName": "articleAchat",
+      "otherEntityName": "articleAchat",
       "otherEntityRelationshipName": "article"
     },
     {

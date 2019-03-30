@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity ArticleAchat.
+    -->
+    <changeSet id="20190323193035-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="achat_id"
+                                 baseTableName="article_achat"
+                                 constraintName="fk_article_achat_achat_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="achat"/>
+
+        <addForeignKeyConstraint baseColumnNames="article_id"
+                                 baseTableName="article_achat"
+                                 constraintName="fk_article_achat_article_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="article"/>
+
+    </changeSet>
+</databaseChangeLog>

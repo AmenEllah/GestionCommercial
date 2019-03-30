@@ -1,0 +1,24 @@
+
+{
+    "gestionApp": {
+        "articleAchat" : {
+            "home": {
+                "title": "Article Achats",
+                "createLabel": "Create a new Article Achat",
+                "createOrEditLabel": "Create or edit a Article Achat"
+            },
+            "created": "A new Article Achat is created with identifier {{ param }}",
+            "updated": "A Article Achat is updated with identifier {{ param }}",
+            "deleted": "A Article Achat is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Article Achat {{ id }}?"
+            },
+            "detail": {
+                "title": "Article Achat"
+            },
+            "quantite": "Quantite",
+            "achat": "Achat",
+            "article": "Article"
+        }
+    }
+}

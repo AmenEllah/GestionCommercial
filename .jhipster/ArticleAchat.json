@@ -1,0 +1,28 @@
+{
+  "fluentMethods": true,
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "relationshipName": "achat",
+      "otherEntityName": "achat",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "relationshipName": "article",
+      "otherEntityName": "article",
+      "otherEntityField": "code"
+    }
+  ],
+  "fields": [
+    {
+      "fieldName": "quantite",
+      "fieldType": "Integer"
+    }
+  ],
+  "changelogDate": "20190323193035",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "entityTableName": "article_achat"
+}

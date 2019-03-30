@@ -15,8 +15,13 @@
       "fieldType": "BigDecimal"
     },
     {
-      "fieldName": "dateRec",
+      "fieldName": "dateReg",
       "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "modeReglement",
+      "fieldType": "EnumModePaiement",
+      "fieldValues": "CHÈQUES\t,ESPÈCES,CARTE_BANQUAIRE"
     }
   ],
   "changelogDate": "20190314222411",

@@ -1,0 +1,20 @@
+{
+  "fluentMethods": true,
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "relationshipValidateRules": "required",
+      "relationshipName": "achat",
+      "otherEntityName": "achat",
+      "otherEntityField": "id",
+      "ownerSide": true,
+      "otherEntityRelationshipName": "factureAchat"
+    }
+  ],
+  "fields": [],
+  "changelogDate": "20190323193033",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "entityTableName": "facture_achat"
+}

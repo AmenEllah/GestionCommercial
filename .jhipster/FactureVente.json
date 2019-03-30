@@ -1,0 +1,20 @@
+{
+  "fluentMethods": true,
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "relationshipValidateRules": "required",
+      "relationshipName": "vente",
+      "otherEntityName": "vente",
+      "otherEntityField": "id",
+      "ownerSide": true,
+      "otherEntityRelationshipName": "factureVente"
+    }
+  ],
+  "fields": [],
+  "changelogDate": "20190323193036",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "entityTableName": "facture_vente"
+}

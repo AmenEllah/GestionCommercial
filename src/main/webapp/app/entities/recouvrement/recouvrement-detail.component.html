@@ -13,6 +13,10 @@
                 <dd>
                     <span>{{recouvrement.dateRec}}</span>
                 </dd>
+                <dt><span jhiTranslate="gestionApp.recouvrement.modeRecouvrement">Mode Recouvrement</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'gestionApp.EnumModePaiement.' + recouvrement.modeRecouvrement}}">{{recouvrement.modeRecouvrement}}</span>
+                </dd>
                 <dt><span jhiTranslate="gestionApp.recouvrement.vente">Vente</span></dt>
                 <dd>
                     <div *ngIf="recouvrement.vente">

@@ -34,6 +34,7 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import tn.amenellah.domain.enumeration.EnumModePaiement;
 /**
  * Test class for the RecouvrementResource REST controller.
  *
@@ -48,6 +49,9 @@ public class RecouvrementResourceIntTest {
 
     private static final LocalDate DEFAULT_DATE_REC = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_DATE_REC = LocalDate.now(ZoneId.systemDefault());
+
+    private static final EnumModePaiement DEFAULT_MODE_RECOUVREMENT = EnumModePaiement.CHÈQUES;
+    private static final EnumModePaiement UPDATED_MODE_RECOUVREMENT = EnumModePaiement.ESPÈCES;
 
     @Autowired
     private RecouvrementRepository recouvrementRepository;
@@ -89,7 +93,8 @@ public class RecouvrementResourceIntTest {
     public static Recouvrement createEntity(EntityManager em) {
         Recouvrement recouvrement = new Recouvrement()
             .montant(DEFAULT_MONTANT)
-            .dateRec(DEFAULT_DATE_REC);
+            .dateRec(DEFAULT_DATE_REC)
+            .modeRecouvrement(DEFAULT_MODE_RECOUVREMENT);
         // Add required entity
         Vente vente = VenteResourceIntTest.createEntity(em);
         em.persist(vente);
@@ -120,6 +125,7 @@ public class RecouvrementResourceIntTest {
         Recouvrement testRecouvrement = recouvrementList.get(recouvrementList.size() - 1);
         assertThat(testRecouvrement.getMontant()).isEqualTo(DEFAULT_MONTANT);
         assertThat(testRecouvrement.getDateRec()).isEqualTo(DEFAULT_DATE_REC);
+        assertThat(testRecouvrement.getModeRecouvrement()).isEqualTo(DEFAULT_MODE_RECOUVREMENT);
     }
 
     @Test
@@ -153,7 +159,8 @@ public class RecouvrementResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(recouvrement.getId().intValue())))
             .andExpect(jsonPath("$.[*].montant").value(hasItem(DEFAULT_MONTANT.intValue())))
-            .andExpect(jsonPath("$.[*].dateRec").value(hasItem(DEFAULT_DATE_REC.toString())));
+            .andExpect(jsonPath("$.[*].dateRec").value(hasItem(DEFAULT_DATE_REC.toString())))
+            .andExpect(jsonPath("$.[*].modeRecouvrement").value(hasItem(DEFAULT_MODE_RECOUVREMENT.toString())));
     }
     
 
@@ -169,7 +176,8 @@ public class RecouvrementResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(recouvrement.getId().intValue()))
             .andExpect(jsonPath("$.montant").value(DEFAULT_MONTANT.intValue()))
-            .andExpect(jsonPath("$.dateRec").value(DEFAULT_DATE_REC.toString()));
+            .andExpect(jsonPath("$.dateRec").value(DEFAULT_DATE_REC.toString()))
+            .andExpect(jsonPath("$.modeRecouvrement").value(DEFAULT_MODE_RECOUVREMENT.toString()));
     }
     @Test
     @Transactional
@@ -193,7 +201,8 @@ public class RecouvrementResourceIntTest {
         em.detach(updatedRecouvrement);
         updatedRecouvrement
             .montant(UPDATED_MONTANT)
-            .dateRec(UPDATED_DATE_REC);
+            .dateRec(UPDATED_DATE_REC)
+            .modeRecouvrement(UPDATED_MODE_RECOUVREMENT);
 
         restRecouvrementMockMvc.perform(put("/api/recouvrements")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -206,6 +215,7 @@ public class RecouvrementResourceIntTest {
         Recouvrement testRecouvrement = recouvrementList.get(recouvrementList.size() - 1);
         assertThat(testRecouvrement.getMontant()).isEqualTo(UPDATED_MONTANT);
         assertThat(testRecouvrement.getDateRec()).isEqualTo(UPDATED_DATE_REC);
+        assertThat(testRecouvrement.getModeRecouvrement()).isEqualTo(UPDATED_MODE_RECOUVREMENT);
     }
 
     @Test

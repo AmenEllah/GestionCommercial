@@ -16,13 +16,13 @@
             "detail": {
                 "title": "Achat"
             },
-            "quantite": "Quantite",
             "dateAchat": "Date Achat",
             "totalPrix": "Total Prix",
             "montantRestant": "Montant Restant",
             "reglement": "Reglement",
-            "article": "Article",
-            "fournisseur": "Fournisseur"
+            "articleAchat": "Article Achat",
+            "fournisseur": "Fournisseur",
+            "factureAchat": "Facture Achat"
         }
     }
 }

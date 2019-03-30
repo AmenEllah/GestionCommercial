@@ -9,9 +9,13 @@
                 <dd>
                     <span>{{reglement.montant}}</span>
                 </dd>
-                <dt><span jhiTranslate="gestionApp.reglement.dateRec">Date Rec</span></dt>
+                <dt><span jhiTranslate="gestionApp.reglement.dateReg">Date Reg</span></dt>
                 <dd>
-                    <span>{{reglement.dateRec}}</span>
+                    <span>{{reglement.dateReg}}</span>
+                </dd>
+                <dt><span jhiTranslate="gestionApp.reglement.modeReglement">Mode Reglement</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'gestionApp.EnumModePaiement.' + reglement.modeReglement}}">{{reglement.modeReglement}}</span>
                 </dd>
                 <dt><span jhiTranslate="gestionApp.reglement.achat">Achat</span></dt>
                 <dd>

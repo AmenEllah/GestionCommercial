@@ -17,6 +17,11 @@
     {
       "fieldName": "dateRec",
       "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "modeRecouvrement",
+      "fieldType": "EnumModePaiement",
+      "fieldValues": "CHÈQUES\t,ESPÈCES,CARTE_BANQUAIRE"
     }
   ],
   "changelogDate": "20190314222412",

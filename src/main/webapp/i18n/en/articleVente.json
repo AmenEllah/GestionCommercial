@@ -1,0 +1,24 @@
+
+{
+    "gestionApp": {
+        "articleVente" : {
+            "home": {
+                "title": "Article Ventes",
+                "createLabel": "Create a new Article Vente",
+                "createOrEditLabel": "Create or edit a Article Vente"
+            },
+            "created": "A new Article Vente is created with identifier {{ param }}",
+            "updated": "A Article Vente is updated with identifier {{ param }}",
+            "deleted": "A Article Vente is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Article Vente {{ id }}?"
+            },
+            "detail": {
+                "title": "Article Vente"
+            },
+            "quantite": "Quantite",
+            "vente": "Vente",
+            "article": "Article"
+        }
+    }
+}

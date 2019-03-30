@@ -22,10 +22,6 @@
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="quantite" type="integer">
-                <constraints nullable="true" />
-            </column>
-
             <column name="date_achat" type="date">
                 <constraints nullable="true" />
             </column>
@@ -35,10 +31,6 @@
             </column>
 
             <column name="montant_restant" type="decimal(10,2)">
-                <constraints nullable="true" />
-            </column>
-
-            <column name="article_id" type="bigint">
                 <constraints nullable="true" />
             </column>
 

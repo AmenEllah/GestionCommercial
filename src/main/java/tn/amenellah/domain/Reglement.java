@@ -12,6 +12,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import tn.amenellah.domain.enumeration.EnumModePaiement;
+
 /**
  * A Reglement.
  */
@@ -29,8 +31,12 @@ public class Reglement implements Serializable {
     @Column(name = "montant", precision = 10, scale = 2)
     private BigDecimal montant;
 
-    @Column(name = "date_rec")
-    private LocalDate dateRec;
+    @Column(name = "date_reg")
+    private LocalDate dateReg;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "mode_reglement")
+    private EnumModePaiement modeReglement;
 
     @ManyToOne(optional = false)
     @NotNull
@@ -59,17 +65,30 @@ public class Reglement implements Serializable {
         this.montant = montant;
     }
 
-    public LocalDate getDateRec() {
-        return dateRec;
+    public LocalDate getDateReg() {
+        return dateReg;
     }
 
-    public Reglement dateRec(LocalDate dateRec) {
-        this.dateRec = dateRec;
+    public Reglement dateReg(LocalDate dateReg) {
+        this.dateReg = dateReg;
         return this;
     }
 
-    public void setDateRec(LocalDate dateRec) {
-        this.dateRec = dateRec;
+    public void setDateReg(LocalDate dateReg) {
+        this.dateReg = dateReg;
+    }
+
+    public EnumModePaiement getModeReglement() {
+        return modeReglement;
+    }
+
+    public Reglement modeReglement(EnumModePaiement modeReglement) {
+        this.modeReglement = modeReglement;
+        return this;
+    }
+
+    public void setModeReglement(EnumModePaiement modeReglement) {
+        this.modeReglement = modeReglement;
     }
 
     public Achat getAchat() {
@@ -111,7 +130,8 @@ public class Reglement implements Serializable {
         return "Reglement{" +
             "id=" + getId() +
             ", montant=" + getMontant() +
-            ", dateRec='" + getDateRec() + "'" +
+            ", dateReg='" + getDateReg() + "'" +
+            ", modeReglement='" + getModeReglement() + "'" +
             "}";
     }
 }

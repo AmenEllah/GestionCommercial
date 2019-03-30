@@ -13,11 +13,19 @@
     <include file="config/liquibase/changelog/20190314222412_added_entity_Recouvrement.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190314222413_added_entity_Achat.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190314222414_added_entity_Vente.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190323193033_added_entity_FactureAchat.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190323193034_added_entity_ArticleVente.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190323193035_added_entity_ArticleAchat.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190323193036_added_entity_FactureVente.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20190314222407_added_entity_constraints_Article.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190314222411_added_entity_constraints_Reglement.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190314222412_added_entity_constraints_Recouvrement.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190314222413_added_entity_constraints_Achat.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190314222414_added_entity_constraints_Vente.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190323193033_added_entity_constraints_FactureAchat.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190323193034_added_entity_constraints_ArticleVente.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190323193035_added_entity_constraints_ArticleAchat.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190323193036_added_entity_constraints_FactureVente.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

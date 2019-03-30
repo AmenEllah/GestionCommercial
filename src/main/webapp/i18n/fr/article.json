@@ -24,8 +24,8 @@
             "totalVente": "Total Vente",
             "totalAchat": "Total Achat",
             "stockInitiale": "Stock Initiale",
-            "achat": "Achat",
-            "vente": "Vente",
+            "articleVente": "Article Vente",
+            "articleAchat": "Article Achat",
             "famille": "Famille"
         }
     }

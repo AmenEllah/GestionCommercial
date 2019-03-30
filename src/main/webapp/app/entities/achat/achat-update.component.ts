@@ -6,10 +6,10 @@ import { JhiAlertService } from 'ng-jhipster';
 
 import { IAchat } from 'app/shared/model/achat.model';
 import { AchatService } from './achat.service';
-import { IArticle } from 'app/shared/model/article.model';
-import { ArticleService } from 'app/entities/article';
 import { IFournisseur } from 'app/shared/model/fournisseur.model';
 import { FournisseurService } from 'app/entities/fournisseur';
+import { IFactureAchat } from 'app/shared/model/facture-achat.model';
+import { FactureAchatService } from 'app/entities/facture-achat';
 
 @Component({
     selector: 'jhi-achat-update',
@@ -18,18 +18,17 @@ import { FournisseurService } from 'app/entities/fournisseur';
 export class AchatUpdateComponent implements OnInit {
     private _achat: IAchat;
     isSaving: boolean;
-    totalPrixAncien: number;
-
-    articles: IArticle[];
 
     fournisseurs: IFournisseur[];
+
+    factureachats: IFactureAchat[];
     dateAchatDp: any;
 
     constructor(
         private jhiAlertService: JhiAlertService,
         private achatService: AchatService,
-        private articleService: ArticleService,
         private fournisseurService: FournisseurService,
+        private factureAchatService: FactureAchatService,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -38,19 +37,18 @@ export class AchatUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ achat }) => {
             this.achat = achat;
         });
-        this.articleService.query().subscribe(
-            (res: HttpResponse<IArticle[]>) => {
-                this.articles = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
         this.fournisseurService.query().subscribe(
             (res: HttpResponse<IFournisseur[]>) => {
                 this.fournisseurs = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
-        this.totalPrixAncien = this.achat.totalPrix;
+        this.factureAchatService.query().subscribe(
+            (res: HttpResponse<IFactureAchat[]>) => {
+                this.factureachats = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
 
     previousState() {
@@ -59,26 +57,9 @@ export class AchatUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        this.achat.totalPrix = this.achat.quantite * this.achat.article.prix;
-
-        this.articleService.find(this.achat.article.id).subscribe((data: HttpResponse<IArticle>) => {
-            data.body.totalAchat += this.achat.quantite;
-            this.articleService.update(data.body).subscribe();
-        });
-
         if (this.achat.id !== undefined) {
-            this.achat.montantRestant = this.achat.totalPrix;
-            this.fournisseurService.find(this.achat.fournisseur.id).subscribe((data: HttpResponse<IFournisseur>) => {
-                data.body.montantRestant += this.achat.totalPrix - this.totalPrixAncien;
-                this.fournisseurService.update(data.body).subscribe();
-            });
             this.subscribeToSaveResponse(this.achatService.update(this.achat));
         } else {
-            this.achat.montantRestant = this.achat.totalPrix;
-            this.fournisseurService.find(this.achat.fournisseur.id).subscribe((data: HttpResponse<IFournisseur>) => {
-                data.body.montantRestant += this.achat.totalPrix;
-                this.fournisseurService.update(data.body).subscribe();
-            });
             this.subscribeToSaveResponse(this.achatService.create(this.achat));
         }
     }
@@ -100,11 +81,11 @@ export class AchatUpdateComponent implements OnInit {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-    trackArticleById(index: number, item: IArticle) {
+    trackFournisseurById(index: number, item: IFournisseur) {
         return item.id;
     }
 
-    trackFournisseurById(index: number, item: IFournisseur) {
+    trackFactureAchatById(index: number, item: IFactureAchat) {
         return item.id;
     }
     get achat() {

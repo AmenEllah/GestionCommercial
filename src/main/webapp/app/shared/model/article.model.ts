@@ -1,5 +1,5 @@
-import { IAchat } from 'app/shared/model/achat.model';
-import { IVente } from 'app/shared/model/vente.model';
+import { IArticleVente } from 'app/shared/model/article-vente.model';
+import { IArticleAchat } from 'app/shared/model/article-achat.model';
 import { IFamille } from 'app/shared/model/famille.model';
 
 export interface IArticle {
@@ -12,8 +12,8 @@ export interface IArticle {
     totalVente?: number;
     totalAchat?: number;
     stockInitiale?: number;
-    achats?: IAchat[];
-    ventes?: IVente[];
+    articleVentes?: IArticleVente[];
+    articleAchats?: IArticleAchat[];
     famille?: IFamille;
 }
 
@@ -28,8 +28,8 @@ export class Article implements IArticle {
         public totalVente?: number,
         public totalAchat?: number,
         public stockInitiale?: number,
-        public achats?: IAchat[],
-        public ventes?: IVente[],
+        public articleVentes?: IArticleVente[],
+        public articleAchats?: IArticleAchat[],
         public famille?: IFamille
     ) {}
 }

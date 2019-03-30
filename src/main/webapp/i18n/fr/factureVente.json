@@ -1,0 +1,22 @@
+
+{
+    "gestionApp": {
+        "factureVente" : {
+            "home": {
+                "title": "FactureVentes",
+                "createLabel": "Créer un nouveau Facture Vente",
+                "createOrEditLabel": "Créer ou éditer un Facture Vente"
+            },
+            "created": "Un nouveau Facture Vente a été créé avec l'identifiant {{ param }}",
+            "updated": "Le Facture Vente avec l'identifiant {{ param }} a été mis à jour",
+            "deleted": "Le Facture Vente avec l'identifiant {{ param }} a été supprimé",
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Facture Vente {{ id }} ?"
+            },
+            "detail": {
+                "title": "Facture Vente"
+            },
+            "vente": "Vente"
+        }
+    }
+}
