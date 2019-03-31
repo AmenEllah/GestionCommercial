@@ -48,6 +48,8 @@ export class ArticleUpdateComponent implements OnInit {
         if (this.article.id !== undefined) {
             this.subscribeToSaveResponse(this.articleService.update(this.article));
         } else {
+            this.article.totalAchat = 0;
+            this.article.totalVente = 0;
             this.subscribeToSaveResponse(this.articleService.create(this.article));
         }
     }

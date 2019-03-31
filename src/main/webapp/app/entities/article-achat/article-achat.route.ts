@@ -60,6 +60,18 @@ export const articleAchatRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
+        path: 'article-achat/new/:idA',
+        component: ArticleAchatUpdateComponent,
+        resolve: {
+            articleAchat: ArticleAchatResolve
+        },
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'gestionApp.articleAchat.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    },
+    {
         path: 'article-achat/:id/edit',
         component: ArticleAchatUpdateComponent,
         resolve: {

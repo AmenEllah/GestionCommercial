@@ -28,11 +28,11 @@ export class ClientUpdateComponent implements OnInit {
     }
 
     save() {
-        this.client.montantRestant = 0;
         this.isSaving = true;
         if (this.client.id !== undefined) {
             this.subscribeToSaveResponse(this.clientService.update(this.client));
         } else {
+            this.client.montantRestant = 0;
             this.subscribeToSaveResponse(this.clientService.create(this.client));
         }
     }

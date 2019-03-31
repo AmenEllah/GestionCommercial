@@ -6,6 +6,11 @@ import { JhiEventManager } from 'ng-jhipster';
 
 import { IReglement } from 'app/shared/model/reglement.model';
 import { ReglementService } from './reglement.service';
+import { AchatService } from '../achat';
+import { FournisseurService } from '../fournisseur';
+import { HttpResponse } from '@angular/common/http';
+import { IAchat } from 'app/shared/model/achat.model';
+import { IFournisseur } from 'app/shared/model/fournisseur.model';
 
 @Component({
     selector: 'jhi-reglement-delete-dialog',
@@ -13,14 +18,33 @@ import { ReglementService } from './reglement.service';
 })
 export class ReglementDeleteDialogComponent {
     reglement: IReglement;
+    fournisseur: IFournisseur;
 
-    constructor(private reglementService: ReglementService, public activeModal: NgbActiveModal, private eventManager: JhiEventManager) {}
+    constructor(
+        private reglementService: ReglementService,
+        public activeModal: NgbActiveModal,
+        private eventManager: JhiEventManager,
+        private achatService: AchatService,
+        private fournisseurService: FournisseurService
+    ) {}
 
     clear() {
         this.activeModal.dismiss('cancel');
     }
 
     confirmDelete(id: number) {
+        this.reglementService.find(id).subscribe((data: HttpResponse<IReglement>) => {
+            this.achatService.find(data.body.achat.id).subscribe((dataAchat: HttpResponse<IAchat>) => {
+                dataAchat.body.montantRestant += data.body.montant;
+                this.achatService.update(dataAchat.body).subscribe();
+
+                this.fournisseurService.find(this.reglement.achat.fournisseur.id).subscribe((dataFour: HttpResponse<IFournisseur>) => {
+                    this.fournisseur = dataFour.body;
+                    this.fournisseur.montantRestant += this.reglement.montant;
+                    this.fournisseurService.update(this.fournisseur).subscribe();
+                });
+            });
+        });
         this.reglementService.delete(id).subscribe(response => {
             this.eventManager.broadcast({
                 name: 'reglementListModification',

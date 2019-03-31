@@ -6,6 +6,13 @@ import { JhiEventManager } from 'ng-jhipster';
 
 import { IArticleAchat } from 'app/shared/model/article-achat.model';
 import { ArticleAchatService } from './article-achat.service';
+import { ArticleService } from '../article/article.service';
+import { AchatService } from '../achat';
+import { HttpResponse } from '@angular/common/http';
+import { IAchat } from 'app/shared/model/achat.model';
+import { IArticle } from 'app/shared/model/article.model';
+import { FournisseurService } from '../fournisseur';
+import { IFournisseur } from 'app/shared/model/fournisseur.model';
 
 @Component({
     selector: 'jhi-article-achat-delete-dialog',
@@ -17,7 +24,10 @@ export class ArticleAchatDeleteDialogComponent {
     constructor(
         private articleAchatService: ArticleAchatService,
         public activeModal: NgbActiveModal,
-        private eventManager: JhiEventManager
+        private eventManager: JhiEventManager,
+        private articleService: ArticleService,
+        private achatService: AchatService,
+        private fournisseurService: FournisseurService
     ) {}
 
     clear() {
@@ -25,6 +35,23 @@ export class ArticleAchatDeleteDialogComponent {
     }
 
     confirmDelete(id: number) {
+        this.articleAchatService.find(id).subscribe((data: HttpResponse<IArticleAchat>) => {
+            this.articleService.find(data.body.article.id).subscribe((dataArticle: HttpResponse<IArticle>) => {
+                dataArticle.body.totalAchat = dataArticle.body.totalAchat - data.body.quantite;
+                this.articleService.update(dataArticle.body).subscribe();
+            });
+
+            this.achatService.find(data.body.achat.id).subscribe((dataAchat: HttpResponse<IAchat>) => {
+                dataAchat.body.montantRestant -= data.body.quantite * data.body.article.prix;
+                dataAchat.body.totalPrix -= data.body.quantite * data.body.article.prix;
+                this.achatService.update(dataAchat.body).subscribe();
+            });
+
+            this.fournisseurService.find(data.body.achat.fournisseur.id).subscribe((dataFournisseur: HttpResponse<IFournisseur>) => {
+                dataFournisseur.body.montantRestant -= data.body.quantite * data.body.article.prix;
+                this.fournisseurService.update(dataFournisseur.body).subscribe();
+            });
+        });
         this.articleAchatService.delete(id).subscribe(response => {
             this.eventManager.broadcast({
                 name: 'articleAchatListModification',

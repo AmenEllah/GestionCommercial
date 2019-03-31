@@ -60,6 +60,8 @@ export class AchatUpdateComponent implements OnInit {
         if (this.achat.id !== undefined) {
             this.subscribeToSaveResponse(this.achatService.update(this.achat));
         } else {
+            this.achat.totalPrix = 0;
+            this.achat.montantRestant = 0;
             this.subscribeToSaveResponse(this.achatService.create(this.achat));
         }
     }

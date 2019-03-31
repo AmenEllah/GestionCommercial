@@ -29,10 +29,10 @@ export class FournisseurUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        this.fournisseur.montantRestant = 0;
         if (this.fournisseur.id !== undefined) {
             this.subscribeToSaveResponse(this.fournisseurService.update(this.fournisseur));
         } else {
+            this.fournisseur.montantRestant = 0;
             this.subscribeToSaveResponse(this.fournisseurService.create(this.fournisseur));
         }
     }

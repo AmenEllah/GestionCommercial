@@ -35,7 +35,8 @@
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="gestionApp.reglement.achat" for="field_achat">Achat</label>
-                    <select class="form-control" id="field_achat" name="achat" [(ngModel)]="reglement.achat"  required>
+                    <select [disabled]="!new"  class="form-control" id="field_achat" name="achat"
+                        [(ngModel)]="reglement.achat" required>
                         <option *ngIf="!editForm.value.achat" [ngValue]="null" selected></option>
                         <option [ngValue]="achatOption.id === reglement.achat?.id ? reglement.achat : achatOption" *ngFor="let achatOption of achats; trackBy: trackAchatById">{{achatOption.id}}</option>
                     </select>
