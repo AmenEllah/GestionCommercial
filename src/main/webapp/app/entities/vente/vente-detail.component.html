@@ -23,6 +23,14 @@
                         <a [routerLink]="['/client', vente.client?.id, 'view']">{{vente.client?.nom}}</a>
                     </div>
                 </dd>
+
+                 <dt><span>Articles</span></dt>
+                 <dd *ngIf="articleVentes">
+                     <div *ngFor="let article of articleVentes">
+                         {{article.quantite}} <a
+                             [routerLink]="['/article', article?.article.id, 'view']">{{article?.article.code}}</a>
+                     </div>
+                 </dd>
             </dl>
 
             <button type="submit"

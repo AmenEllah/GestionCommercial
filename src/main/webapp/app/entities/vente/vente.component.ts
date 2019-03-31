@@ -6,6 +6,7 @@ import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { IVente } from 'app/shared/model/vente.model';
 import { Principal } from 'app/core';
 import { VenteService } from './vente.service';
+import { FactureVenteService } from '../facture-vente';
 
 @Component({
     selector: 'jhi-vente',
@@ -20,13 +21,15 @@ export class VenteComponent implements OnInit, OnDestroy {
         private venteService: VenteService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
-        private principal: Principal
+        private principal: Principal,
+        private factureVenteService: FactureVenteService
     ) {}
 
     loadAll() {
         this.venteService.query().subscribe(
             (res: HttpResponse<IVente[]>) => {
                 this.ventes = res.body;
+                console.log(this.ventes);
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );

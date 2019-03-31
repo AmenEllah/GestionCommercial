@@ -6,6 +6,13 @@ import { JhiEventManager } from 'ng-jhipster';
 
 import { IArticleVente } from 'app/shared/model/article-vente.model';
 import { ArticleVenteService } from './article-vente.service';
+import { HttpResponse } from '@angular/common/http';
+import { IClient } from 'app/shared/model/client.model';
+import { ClientService } from '../client';
+import { VenteService } from '../vente';
+import { IArticle } from 'app/shared/model/article.model';
+import { ArticleService } from '../article/article.service';
+import { IVente } from 'app/shared/model/vente.model';
 
 @Component({
     selector: 'jhi-article-vente-delete-dialog',
@@ -17,7 +24,10 @@ export class ArticleVenteDeleteDialogComponent {
     constructor(
         private articleVenteService: ArticleVenteService,
         public activeModal: NgbActiveModal,
-        private eventManager: JhiEventManager
+        private eventManager: JhiEventManager,
+        private clientService: ClientService,
+        private venteService: VenteService,
+        private articleService: ArticleService
     ) {}
 
     clear() {
@@ -25,6 +35,24 @@ export class ArticleVenteDeleteDialogComponent {
     }
 
     confirmDelete(id: number) {
+        this.articleVenteService.find(id).subscribe((data: HttpResponse<IArticleVente>) => {
+            this.articleService.find(data.body.article.id).subscribe((dataArticle: HttpResponse<IArticle>) => {
+                dataArticle.body.totalVente = dataArticle.body.totalVente - data.body.quantite;
+                this.articleService.update(dataArticle.body).subscribe();
+            });
+
+            this.venteService.find(data.body.vente.id).subscribe((datavente: HttpResponse<IVente>) => {
+                datavente.body.montantRestant -= data.body.quantite * data.body.article.prix;
+                datavente.body.totalPrix -= data.body.quantite * data.body.article.prix;
+                this.venteService.update(datavente.body).subscribe();
+            });
+
+            this.clientService.find(data.body.vente.client.id).subscribe((dataclient: HttpResponse<IClient>) => {
+                dataclient.body.montantRestant -= data.body.quantite * data.body.article.prix;
+                this.clientService.update(dataclient.body).subscribe();
+            });
+        });
+
         this.articleVenteService.delete(id).subscribe(response => {
             this.eventManager.broadcast({
                 name: 'articleVenteListModification',

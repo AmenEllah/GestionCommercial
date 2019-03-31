@@ -60,6 +60,18 @@ export const articleVenteRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
+        path: 'article-vente/new/:idA',
+        component: ArticleVenteUpdateComponent,
+        resolve: {
+            articleVente: ArticleVenteResolve
+        },
+        data: {
+            authorities: ['ROLE_USER'],
+            pageTitle: 'gestionApp.articleVente.home.title'
+        },
+        canActivate: [UserRouteAccessService]
+    },
+    {
         path: 'article-vente/:id/edit',
         component: ArticleVenteUpdateComponent,
         resolve: {

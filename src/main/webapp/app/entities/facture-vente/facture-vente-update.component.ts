@@ -18,6 +18,7 @@ export class FactureVenteUpdateComponent implements OnInit {
     isSaving: boolean;
 
     ventes: IVente[];
+    vente: IVente;
 
     constructor(
         private jhiAlertService: JhiAlertService,
@@ -54,6 +55,11 @@ export class FactureVenteUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+        this.venteService.find(this.factureVente.vente.id).subscribe((data: HttpResponse<IVente>) => {
+            this.vente = data.body;
+            this.vente.factureVente = this.factureVente;
+            this.venteService.update(this.vente).subscribe();
+        });
         if (this.factureVente.id !== undefined) {
             this.subscribeToSaveResponse(this.factureVenteService.update(this.factureVente));
         } else {

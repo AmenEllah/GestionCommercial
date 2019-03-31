@@ -6,6 +6,7 @@ import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { IAchat } from 'app/shared/model/achat.model';
 import { Principal } from 'app/core';
 import { AchatService } from './achat.service';
+import { ArticleAchatService } from '../article-achat';
 
 @Component({
     selector: 'jhi-achat',
@@ -20,7 +21,8 @@ export class AchatComponent implements OnInit, OnDestroy {
         private achatService: AchatService,
         private jhiAlertService: JhiAlertService,
         private eventManager: JhiEventManager,
-        private principal: Principal
+        private principal: Principal,
+        private articleAchatService: ArticleAchatService
     ) {}
 
     loadAll() {

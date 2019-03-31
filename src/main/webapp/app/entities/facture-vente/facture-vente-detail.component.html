@@ -1,29 +1,196 @@
-<div class="row justify-content-center">
-    <div class="col-8">
-        <div *ngIf="factureVente">
-            <h2><span jhiTranslate="gestionApp.factureVente.detail.title">Facture Vente</span> {{factureVente.id}}</h2>
-            <hr>
-            <jhi-alert-error></jhi-alert-error>
-            <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="gestionApp.factureVente.vente">Vente</span></dt>
-                <dd>
-                    <div *ngIf="factureVente.vente">
-                        <a [routerLink]="['/vente', factureVente.vente?.id, 'view']">{{factureVente.vente?.id}}</a>
-                    </div>
-                </dd>
-            </dl>
+<!doctype html>
+<html>
 
-            <button type="submit"
-                    (click)="previousState()"
-                    class="btn btn-info">
-                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
-            </button>
+<head>
+    <meta charset="utf-8">
+    <title>A simple, clean, and responsive HTML invoice template</title>
 
-            <button type="button"
-                    [routerLink]="['/facture-vente', factureVente.id, 'edit']"
-                    class="btn btn-primary">
-                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-            </button>
-        </div>
+    <style>
+        .invoice-box {
+            max-width: 800px;
+            margin: auto;
+            padding: 30px;
+            border: 1px solid #eee;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+            font-size: 16px;
+            line-height: 24px;
+            font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+            color: #555;
+        }
+
+        .invoice-box table {
+            width: 100%;
+            line-height: inherit;
+            text-align: left;
+        }
+
+        .invoice-box table td {
+            padding: 5px;
+            vertical-align: top;
+        }
+
+        .invoice-box table tr td:nth-child(4) {
+            text-align: right;
+        }
+
+        .invoice-box table tr.top table td {
+            padding-bottom: 20px;
+        }
+
+        .invoice-box table tr.top table td.title {
+            font-size: 45px;
+            line-height: 45px;
+            color: #333;
+        }
+
+        .invoice-box table tr.information table td {
+            padding-bottom: 40px;
+        }
+
+        .invoice-box table tr.heading td {
+            background: #eee;
+            border-bottom: 1px solid #ddd;
+            font-weight: bold;
+        }
+
+        .invoice-box table tr.details td {
+            padding-bottom: 20px;
+        }
+
+        .invoice-box table tr.item td {
+            border-bottom: 1px solid #eee;
+        }
+
+        .invoice-box table tr.item.last td {
+            border-bottom: none;
+        }
+
+        .invoice-box table tr.total td:nth-child(4) {
+            border-top: 2px solid #eee;
+            font-weight: bold;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .invoice-box table tr.top table td {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+
+            .invoice-box table tr.information table td {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+        }
+
+        /** RTL **/
+        .rtl {
+            direction: rtl;
+            font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+        }
+
+        .rtl table {
+            text-align: right;
+        }
+
+        .rtl table tr td:nth-child(2) {
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="invoice-box" id='content'>
+        <table cellpadding="0" cellspacing="0">
+            <tr class="top">
+                <td colspan="4">
+                    <table>
+                        <tr>
+                            <td>
+                                <h1>Facture Vente</h1>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                Facture #: {{factureVente.id}}<br>
+                                Crée: {{theDate | date:'mediumDate'}}<br>
+                                De: {{factureVente.vente.dateVente | date:'mediumDate'}}
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <tr class="information">
+                <td colspan="4">
+                    <table>
+                        <tr>
+                            <td>
+                                Sparksuite, Inc.<br>
+                                12345 Sunny Road<br>
+                                Sunnyville, CA 12345
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                {{factureVente.vente.client.nom}}<br>
+                                {{factureVente.vente.client.adresse}}<br>
+                                {{factureVente.vente.client.telephone}}
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+
+
+            <tr class="heading">
+                <td>
+                    Code Article
+                </td>
+
+                <td>
+                    Prix uniaire
+                </td>
+                <td>
+                    Quantité
+                </td>
+                <td>
+                    Prix
+                </td>
+            </tr>
+
+            <tr class="item" *ngFor="let item of articleVentes">
+                <td>
+                    {{item.article.code}}
+                </td>
+
+                <td>
+                    {{item.article.prix}}
+                </td>
+                <td>
+                    {{item.quantite}}
+                </td>
+                <td>
+                    {{item.quantite * item.article.prix}}
+                </td>
+            </tr>
+
+
+
+            <tr class="total">
+                <td></td>
+                <td></td>
+                <td></td>
+
+                <td>
+                    Total: {{factureVente.vente.totalPrix}}
+                </td>
+            </tr>
+        </table>
     </div>
-</div>
+</body>
+<button type="button" class="btn btn-primary" (click)='downloadPDF()'>Export PDF</button>
+
+</html>

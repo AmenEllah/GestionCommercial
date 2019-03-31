@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { JhiAlertService } from 'ng-jhipster';
 
 import { IArticleVente } from 'app/shared/model/article-vente.model';
-import { ArticleVenteService } from './article-vente.service';
 import { IVente } from 'app/shared/model/vente.model';
 import { VenteService } from 'app/entities/vente';
 import { IArticle } from 'app/shared/model/article.model';
 import { ArticleService } from 'app/entities/article';
+import { ClientService } from '../client';
+import { IClient } from 'app/shared/model/client.model';
+import { ArticleVenteService } from './article-vente.service';
 
 @Component({
     selector: 'jhi-article-vente-update',
@@ -22,17 +24,25 @@ export class ArticleVenteUpdateComponent implements OnInit {
     ventes: IVente[];
 
     articles: IArticle[];
+    vente: IVente;
+    ancienMontant: number;
+    ancienQuantite: any;
+    new: boolean;
+    id: number;
 
     constructor(
         private jhiAlertService: JhiAlertService,
         private articleVenteService: ArticleVenteService,
         private venteService: VenteService,
         private articleService: ArticleService,
-        private activatedRoute: ActivatedRoute
+        private activatedRoute: ActivatedRoute,
+        private clientService: ClientService
     ) {}
 
     ngOnInit() {
         this.isSaving = false;
+        this.new = true;
+
         this.activatedRoute.data.subscribe(({ articleVente }) => {
             this.articleVente = articleVente;
         });
@@ -48,6 +58,20 @@ export class ArticleVenteUpdateComponent implements OnInit {
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
+
+        this.activatedRoute.params.subscribe((params: Params) => {
+            this.id = +params['idA'];
+            if (this.id) {
+                this.venteService.find(this.id).subscribe((res: HttpResponse<IVente>) => {
+                    this.vente = res.body;
+                    this.articleVente.vente = this.vente;
+                    this.new = false;
+                });
+            }
+        });
+
+        this.ancienQuantite = this.articleVente.quantite;
+        this.ancienMontant = this.articleVente.quantite * this.articleVente.article.prix;
     }
 
     previousState() {
@@ -56,9 +80,41 @@ export class ArticleVenteUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+
         if (this.articleVente.id !== undefined) {
+            //update
+            this.articleService.find(this.articleVente.article.id).subscribe((data: HttpResponse<IArticle>) => {
+                data.body.totalVente += this.articleVente.quantite - this.ancienQuantite;
+                this.articleService.update(data.body).subscribe();
+            });
+            this.venteService.find(this.articleVente.vente.id).subscribe((data: HttpResponse<IVente>) => {
+                this.vente = data.body;
+                this.vente.montantRestant += this.articleVente.quantite * this.articleVente.article.prix - this.ancienMontant;
+                this.vente.totalPrix += this.articleVente.quantite * this.articleVente.article.prix - this.ancienMontant;
+
+                this.clientService.find(this.vente.client.id).subscribe((dataclient: HttpResponse<IClient>) => {
+                    dataclient.body.montantRestant += this.articleVente.quantite * this.articleVente.article.prix - this.ancienMontant;
+                    this.clientService.update(dataclient.body).subscribe();
+                });
+
+                this.venteService.update(this.vente).subscribe();
+            });
+
             this.subscribeToSaveResponse(this.articleVenteService.update(this.articleVente));
         } else {
+            // create
+            this.articleService.find(this.articleVente.article.id).subscribe((data: HttpResponse<IArticle>) => {
+                data.body.totalVente += this.articleVente.quantite;
+                this.articleService.update(data.body).subscribe();
+            });
+            this.vente.totalPrix += this.articleVente.quantite * this.articleVente.article.prix;
+
+            this.vente.montantRestant += this.articleVente.quantite * this.articleVente.article.prix;
+            this.clientService.find(this.vente.client.id).subscribe((data: HttpResponse<IClient>) => {
+                data.body.montantRestant += this.articleVente.quantite * this.articleVente.article.prix;
+                this.clientService.update(data.body).subscribe();
+            });
+            this.venteService.update(this.vente).subscribe();
             this.subscribeToSaveResponse(this.articleVenteService.create(this.articleVente));
         }
     }

@@ -6,6 +6,11 @@ import { JhiEventManager } from 'ng-jhipster';
 
 import { IRecouvrement } from 'app/shared/model/recouvrement.model';
 import { RecouvrementService } from './recouvrement.service';
+import { HttpResponse } from '@angular/common/http';
+import { ClientService } from '../client';
+import { VenteService } from '../vente';
+import { IVente } from 'app/shared/model/vente.model';
+import { IClient } from 'app/shared/model/client.model';
 
 @Component({
     selector: 'jhi-recouvrement-delete-dialog',
@@ -13,11 +18,14 @@ import { RecouvrementService } from './recouvrement.service';
 })
 export class RecouvrementDeleteDialogComponent {
     recouvrement: IRecouvrement;
+    client: IClient;
 
     constructor(
         private recouvrementService: RecouvrementService,
         public activeModal: NgbActiveModal,
-        private eventManager: JhiEventManager
+        private eventManager: JhiEventManager,
+        private venteService: VenteService,
+        private clientService: ClientService
     ) {}
 
     clear() {
@@ -25,6 +33,19 @@ export class RecouvrementDeleteDialogComponent {
     }
 
     confirmDelete(id: number) {
+        this.recouvrementService.find(id).subscribe((data: HttpResponse<IRecouvrement>) => {
+            this.venteService.find(data.body.vente.id).subscribe((datavente: HttpResponse<IVente>) => {
+                datavente.body.montantRestant += data.body.montant;
+                this.venteService.update(datavente.body).subscribe();
+
+                this.clientService.find(this.recouvrement.vente.client.id).subscribe((dataFour: HttpResponse<IClient>) => {
+                    this.client = dataFour.body;
+                    this.client.montantRestant += this.recouvrement.montant;
+                    this.clientService.update(this.client).subscribe();
+                });
+            });
+        });
+
         this.recouvrementService.delete(id).subscribe(response => {
             this.eventManager.broadcast({
                 name: 'recouvrementListModification',

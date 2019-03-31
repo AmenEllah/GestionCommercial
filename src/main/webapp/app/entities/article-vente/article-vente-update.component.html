@@ -17,7 +17,8 @@
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="gestionApp.articleVente.vente" for="field_vente">Vente</label>
-                    <select class="form-control" id="field_vente" name="vente" [(ngModel)]="articleVente.vente" >
+                    <select [disabled]="!new" class="form-control" id="field_vente" name="vente"
+                        [(ngModel)]="articleVente.vente">
                         <option [ngValue]="null"></option>
                         <option [ngValue]="venteOption.id === articleVente.vente?.id ? articleVente.vente : venteOption" *ngFor="let venteOption of ventes; trackBy: trackVenteById">{{venteOption.id}}</option>
                     </select>

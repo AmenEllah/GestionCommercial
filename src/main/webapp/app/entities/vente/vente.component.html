@@ -35,26 +35,50 @@
                 </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
-                        <button type="submit"
-                                [routerLink]="['/vente', vente.id, 'view' ]"
-                                class="btn btn-info btn-sm">
-                            <fa-icon [icon]="'eye'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-                        </button>
-                        <button type="submit"
-                                [routerLink]="['/vente', vente.id, 'edit']"
-                                class="btn btn-primary btn-sm">
-                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                        </button>
-                        <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'vente/'+ vente.id + '/delete'} }]"
-                                replaceUrl="true"
-                                queryParamsHandling="merge"
-                                class="btn btn-danger btn-sm">
-                            <fa-icon [icon]="'times'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-                        </button>
+                      <div class="btn-group" role="group" ngbDropdown>
+                          <button id="btnGroupDrop1" type="button" class="btn btn-success dropdown-toggle"
+                              ngbDropdownToggle data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <span>
+                                  <fa-icon [icon]="'th-list'"></fa-icon>
+                                  <span>
+                                      CRUD
+                                  </span>
+                              </span>
+                          </button>
+                          <div class="dropdown-menu" ngbDropdownMenu>
+                              <a class="dropdown-item" [routerLink]="['/vente', vente.id, 'view' ]">
+                                  <fa-icon [icon]="'eye'"></fa-icon>
+                                  <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                              </a>
+                              <a class="dropdown-item" [routerLink]="['/vente', vente.id, 'edit']">
+                                  <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                  <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                              </a>
+                              <a class="dropdown-item"
+                                  [routerLink]="['/', { outlets: { popup: 'vente/'+ vente.id + '/delete'} }]"
+                                  replaceUrl="true" queryParamsHandling="merge">
+                                  <fa-icon [icon]="'times'">
+                                  </fa-icon>
+                                  <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                              </a>
+                          </div>
+                      </div>
+                      <button type="submit" [routerLink]="['/recouvrement/new',vente.id]" class="btn btn-warning btn-sm">
+                          <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                          <span class="d-none d-md-inline">Recouvrement</span>
+                      </button><!--  -->
+
+                      <button *ngIf='vente.factureVente !== undefined' type="submit"
+                          [routerLink]="['/facture-vente', vente.factureVente.id, 'view' ]"
+                          class="btn btn-info btn-sm">
+                          <fa-icon [icon]="'eye'"></fa-icon>
+                          <span class="d-none d-md-inline">Facture</span>
+                      </button>
+                      <button type="submit" [routerLink]="['/article-vente/new',vente.id]"
+                          class="btn btn-primary btn-sm">
+                          <fa-icon [icon]="'plus'"></fa-icon>
+                          <span class="d-none d-md-inline">Ajouter Article</span>
+                      </button>
                     </div>
                 </td>
             </tr>

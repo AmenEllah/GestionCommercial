@@ -60,6 +60,8 @@ export class VenteUpdateComponent implements OnInit {
         if (this.vente.id !== undefined) {
             this.subscribeToSaveResponse(this.venteService.update(this.vente));
         } else {
+            this.vente.totalPrix = 0;
+            this.vente.montantRestant = 0;
             this.subscribeToSaveResponse(this.venteService.create(this.vente));
         }
     }

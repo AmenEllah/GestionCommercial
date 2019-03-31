@@ -23,6 +23,13 @@
                         <a [routerLink]="['/fournisseur', achat.fournisseur?.id, 'view']">{{achat.fournisseur?.nom}}</a>
                     </div>
                 </dd>
+
+                <dt><span >Articles</span></dt>
+                <dd *ngIf="articleAchats" >
+                    <div *ngFor="let article of articleAchats">
+                       {{article.quantite}} <a [routerLink]="['/article', article?.article.id, 'view']">{{article?.article.code}}</a>
+                    </div>
+                </dd>
             </dl>
 
             <button type="submit"
