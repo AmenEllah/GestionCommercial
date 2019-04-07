@@ -82,7 +82,6 @@ export class ArticleVenteUpdateComponent implements OnInit {
         this.isSaving = true;
 
         if (this.articleVente.id !== undefined) {
-            //update
             this.articleService.find(this.articleVente.article.id).subscribe((data: HttpResponse<IArticle>) => {
                 data.body.totalVente += this.articleVente.quantite - this.ancienQuantite;
                 this.articleService.update(data.body).subscribe();
@@ -102,7 +101,6 @@ export class ArticleVenteUpdateComponent implements OnInit {
 
             this.subscribeToSaveResponse(this.articleVenteService.update(this.articleVente));
         } else {
-            // create
             this.articleService.find(this.articleVente.article.id).subscribe((data: HttpResponse<IArticle>) => {
                 data.body.totalVente += this.articleVente.quantite;
                 this.articleService.update(data.body).subscribe();

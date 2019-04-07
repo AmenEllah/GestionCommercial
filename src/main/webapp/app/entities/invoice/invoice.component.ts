@@ -6,22 +6,22 @@ import * as jsPDF from 'jspdf';
     styleUrls: ['invoice.component.scss']
 })
 export class InvoiceComponent implements OnInit {
+    @ViewChild('content') content: ElementRef;
+
     constructor() {}
 
     ngOnInit() {}
 
-    @ViewChild('content') content: ElementRef;
     public downloadPDF() {
         const doc = new jsPDF();
 
         const specialElementHandlers = {
-            '#editor': function(element, renderer) {
+            '#editor'(element, renderer) {
                 return true;
             }
         };
 
         const content = this.content.nativeElement;
-        //html2canvas for css
         doc.fromHTML(content.innerHTML, 30, 15, {
             width: 190,
             elementHandlers: specialElementHandlers

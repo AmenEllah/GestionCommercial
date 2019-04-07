@@ -72,13 +72,14 @@
                                 <span class="d-none d-md-inline">Reglement</span>
                             </button><!--  -->
 
-                            <button type="submit" [routerLink]="['/facture-achat', achat.id, 'view' ]"
+                            <button type="submit" *ngIf='achat.factureAchat !== undefined'  [routerLink]="['/facture-achat', achat.id, 'view' ]"
                                 class="btn btn-info btn-sm">
                                 <fa-icon [icon]="'eye'"></fa-icon>
                                 <span class="d-none d-md-inline">Facture</span>
                             </button>
-                            <button *ngIf='achat.factureAchat !== undefined' type="submit"
-                                [routerLink]="['/article-achat/new',achat.factureAchat.id]"
+
+                            <button  type="submit"
+                                [routerLink]="['/article-achat/new',achat.id]"
                                 class="btn btn-primary btn-sm">
                                 <fa-icon [icon]="'plus'"></fa-icon>
                                 <span class="d-none d-md-inline">Ajouter Article</span>
