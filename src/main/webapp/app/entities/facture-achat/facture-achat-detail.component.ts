@@ -18,6 +18,13 @@ export class FactureAchatDetailComponent implements OnInit {
     sysDate: String;
     theDate: Date;
 
+    totalHT: number;
+    remise: number;
+    montantNet: number;
+    tva: number;
+    montantTTC: number;
+    montantTVA: number;
+
     constructor(private activatedRoute: ActivatedRoute, private articleAchatService: ArticleAchatService) {}
 
     ngOnInit() {
@@ -27,9 +34,16 @@ export class FactureAchatDetailComponent implements OnInit {
         this.articleAchatService.query().subscribe((data: HttpResponse<IArticleAchat[]>) => {
             this.articleAchats = data.body;
             this.articleAchats.filter(x => x.achat.id === this.factureAchat.achat.id);
+            this.theDate = new Date();
+            this.sysDate = this.theDate.toUTCString();
+
+            this.totalHT = this.factureAchat.achat.totalPrix;
+            this.remise = this.totalHT * this.factureAchat.achat.remise / 100;
+            this.montantNet = this.totalHT - this.remise;
+            this.tva = this.articleAchats[0].article.tva;
+            this.montantTVA = this.montantNet * this.tva / 100;
+            this.montantTTC = this.montantNet + this.montantTVA;
         });
-        this.theDate = new Date();
-        this.sysDate = this.theDate.toUTCString();
     }
 
     previousState() {

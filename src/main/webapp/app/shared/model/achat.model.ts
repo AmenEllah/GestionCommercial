@@ -9,6 +9,7 @@ export interface IAchat {
     dateAchat?: Moment;
     totalPrix?: number;
     montantRestant?: number;
+    remise?: number;
     reglements?: IReglement[];
     articleAchats?: IArticleAchat[];
     fournisseur?: IFournisseur;
@@ -21,6 +22,7 @@ export class Achat implements IAchat {
         public dateAchat?: Moment,
         public totalPrix?: number,
         public montantRestant?: number,
+        public remise?: number,
         public reglements?: IReglement[],
         public articleAchats?: IArticleAchat[],
         public fournisseur?: IFournisseur,

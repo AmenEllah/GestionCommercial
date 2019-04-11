@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { IVente } from 'app/shared/model/vente.model';
-import { HttpResponse } from '@angular/common/http';
 import { IArticleVente } from 'app/shared/model/article-vente.model';
 import { ArticleVenteService } from '../article-vente';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
     selector: 'jhi-vente-detail',

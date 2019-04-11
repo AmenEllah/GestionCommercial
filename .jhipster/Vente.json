@@ -39,6 +39,10 @@
     {
       "fieldName": "montantRestant",
       "fieldType": "BigDecimal"
+    },
+    {
+      "fieldName": "remise",
+      "fieldType": "Integer"
     }
   ],
   "changelogDate": "20190314222414",

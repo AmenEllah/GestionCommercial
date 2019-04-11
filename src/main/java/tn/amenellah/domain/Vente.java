@@ -37,6 +37,9 @@ public class Vente implements Serializable {
     @Column(name = "montant_restant", precision = 10, scale = 2)
     private BigDecimal montantRestant;
 
+    @Column(name = "remise")
+    private Integer remise;
+
     @OneToMany(mappedBy = "vente")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Recouvrement> recouvrements = new HashSet<>();
@@ -99,6 +102,19 @@ public class Vente implements Serializable {
 
     public void setMontantRestant(BigDecimal montantRestant) {
         this.montantRestant = montantRestant;
+    }
+
+    public Integer getRemise() {
+        return remise;
+    }
+
+    public Vente remise(Integer remise) {
+        this.remise = remise;
+        return this;
+    }
+
+    public void setRemise(Integer remise) {
+        this.remise = remise;
     }
 
     public Set<Recouvrement> getRecouvrements() {
@@ -205,6 +221,7 @@ public class Vente implements Serializable {
             ", dateVente='" + getDateVente() + "'" +
             ", totalPrix=" + getTotalPrix() +
             ", montantRestant=" + getMontantRestant() +
+            ", remise=" + getRemise() +
             "}";
     }
 }

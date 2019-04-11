@@ -17,30 +17,30 @@
                 <dd>
                     <span>{{achat.montantRestant}}</span>
                 </dd>
+                <dt><span jhiTranslate="gestionApp.achat.remise">Remise</span></dt>
+                <dd>
+                    <span>{{achat.remise}}</span>
+                </dd>
                 <dt><span jhiTranslate="gestionApp.achat.fournisseur">Fournisseur</span></dt>
                 <dd>
                     <div *ngIf="achat.fournisseur">
                         <a [routerLink]="['/fournisseur', achat.fournisseur?.id, 'view']">{{achat.fournisseur?.nom}}</a>
                     </div>
                 </dd>
-
-                <dt><span >Articles</span></dt>
-                <dd *ngIf="articleAchats" >
+                <dt><span>Articles</span></dt>
+                <dd *ngIf="articleAchats">
                     <div *ngFor="let article of articleAchats">
-                       {{article.quantite}} <a [routerLink]="['/article', article?.article.id, 'view']">{{article?.article.code}}</a>
+                        {{article.quantite}} <a
+                            [routerLink]="['/article', article?.article.id, 'view']">{{article?.article.code}}</a>
                     </div>
                 </dd>
             </dl>
 
-            <button type="submit"
-                    (click)="previousState()"
-                    class="btn btn-info">
+            <button type="submit" (click)="previousState()" class="btn btn-info">
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
             </button>
 
-            <button type="button"
-                    [routerLink]="['/achat', achat.id, 'edit']"
-                    class="btn btn-primary">
+            <button type="button" [routerLink]="['/achat', achat.id, 'edit']" class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
             </button>
         </div>

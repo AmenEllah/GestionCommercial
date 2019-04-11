@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { IAchat } from 'app/shared/model/achat.model';
-import { ArticleAchatService } from '../article-achat';
 import { IArticleAchat } from 'app/shared/model/article-achat.model';
+import { ArticleAchatService } from '../article-achat';
 import { HttpResponse } from '@angular/common/http';
 
 @Component({

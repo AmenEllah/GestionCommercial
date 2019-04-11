@@ -97,6 +97,7 @@
         .rtl table tr td:nth-child(2) {
             text-align: left;
         }
+
     </style>
 </head>
 
@@ -185,7 +186,43 @@
                 <td></td>
 
                 <td>
-                    Total: {{factureVente.vente.totalPrix}}
+                    Prix Total HT: {{factureVente.vente.totalPrix}}
+                </td>
+            </tr>
+            <tr class="total">
+                <td></td>
+                <td></td>
+                <td></td>
+
+                <td>
+                    Remise{{this.factureVente.vente.remise}}%: {{remise}}
+                </td>
+            </tr>
+            <tr class="total">
+                <td></td>
+                <td></td>
+                <td></td>
+
+                <td>
+                    Montant net: {{montantNet}}
+                </td>
+            </tr>
+            <tr class="total">
+                <td></td>
+                <td></td>
+                <td></td>
+
+                <td>
+                    TVA{{tva}}%: {{montantTVA}}
+                </td>
+            </tr>
+            <tr class="total">
+                <td></td>
+                <td></td>
+                <td></td>
+
+                <td>
+                    Montant TTC: {{montantTTC}}
                 </td>
             </tr>
         </table>

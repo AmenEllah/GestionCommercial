@@ -1,38 +1,54 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-            <h2 id="jhi-achat-heading" jhiTranslate="gestionApp.achat.home.createOrEditLabel">Create or edit a Achat</h2>
+            <h2 id="jhi-achat-heading" jhiTranslate="gestionApp.achat.home.createOrEditLabel">Create or edit a Achat
+            </h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
                 <div class="form-group" [hidden]="!achat.id">
                     <label for="id" jhiTranslate="global.field.id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id"
-                        [(ngModel)]="achat.id" readonly />
+                    <input type="text" class="form-control" id="id" name="id" [(ngModel)]="achat.id" readonly />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="gestionApp.achat.dateAchat" for="field_dateAchat">Date Achat</label>
+                    <label class="form-control-label" jhiTranslate="gestionApp.achat.dateAchat"
+                        for="field_dateAchat">Date Achat</label>
                     <div class="input-group">
-                        <input id="field_dateAchat" type="text" class="form-control" name="dateAchat" ngbDatepicker  #dateAchatDp="ngbDatepicker" [(ngModel)]="achat.dateAchat"
-                        />
+                        <input id="field_dateAchat" type="text" class="form-control" name="dateAchat" ngbDatepicker
+                            #dateAchatDp="ngbDatepicker" [(ngModel)]="achat.dateAchat" />
                         <span class="input-group-append">
-                            <button type="button" class="btn btn-secondary" (click)="dateAchatDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                            <button type="button" class="btn btn-secondary" (click)="dateAchatDp.toggle()">
+                                <fa-icon [icon]="'calendar-alt'"></fa-icon>
+                            </button>
                         </span>
                     </div>
                 </div>
-                
+
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="gestionApp.achat.fournisseur" for="field_fournisseur">Fournisseur</label>
-                    <select class="form-control" id="field_fournisseur" name="fournisseur" [(ngModel)]="achat.fournisseur" >
+                    <label class="form-control-label" jhiTranslate="gestionApp.achat.remise"
+                        for="field_remise">Remise</label>
+                    <input type="number" class="form-control" name="remise" id="field_remise"
+                        [(ngModel)]="achat.remise" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gestionApp.achat.fournisseur"
+                        for="field_fournisseur">Fournisseur</label>
+                    <select class="form-control" id="field_fournisseur" name="fournisseur"
+                        [(ngModel)]="achat.fournisseur">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="fournisseurOption.id === achat.fournisseur?.id ? achat.fournisseur : fournisseurOption" *ngFor="let fournisseurOption of fournisseurs; trackBy: trackFournisseurById">{{fournisseurOption.nom}}</option>
+                        <option
+                            [ngValue]="fournisseurOption.id === achat.fournisseur?.id ? achat.fournisseur : fournisseurOption"
+                            *ngFor="let fournisseurOption of fournisseurs; trackBy: trackFournisseurById">
+                            {{fournisseurOption.nom}}</option>
                     </select>
                 </div>
             </div>
             <div>
-                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
                 </button>
-                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving"
+                    class="btn btn-primary">
                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                 </button>
             </div>

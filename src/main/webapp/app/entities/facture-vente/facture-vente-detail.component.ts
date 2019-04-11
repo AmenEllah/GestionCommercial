@@ -18,6 +18,13 @@ export class FactureVenteDetailComponent implements OnInit {
     theDate: Date;
     sysDate: string;
 
+    totalHT: number;
+    remise: number;
+    montantNet: number;
+    tva: number;
+    montantTTC: number;
+    montantTVA: number;
+
     constructor(private activatedRoute: ActivatedRoute, private articleVenteService: ArticleVenteService) {}
 
     ngOnInit() {
@@ -27,6 +34,13 @@ export class FactureVenteDetailComponent implements OnInit {
         this.articleVenteService.query().subscribe((data: HttpResponse<IArticleVente[]>) => {
             this.articleVentes = data.body;
             this.articleVentes.filter(x => x.vente.id === this.factureVente.vente.id);
+
+            this.totalHT = this.factureVente.vente.totalPrix;
+            this.remise = this.totalHT * this.factureVente.vente.remise / 100;
+            this.montantNet = this.totalHT - this.remise;
+            this.tva = this.articleVentes[0].article.tva;
+            this.montantTVA = this.montantNet * this.tva / 100;
+            this.montantTTC = this.montantNet + this.montantTVA;
         });
         this.theDate = new Date();
         this.sysDate = this.theDate.toUTCString();

@@ -97,6 +97,7 @@
         .rtl table tr td:nth-child(2) {
             text-align: left;
         }
+
     </style>
 </head>
 
@@ -107,12 +108,12 @@
                 <td colspan="4">
                     <table>
                         <tr>
-                            <td >
+                            <td>
                                 <h1>Facture Achat</h1>
                             </td>
-<td></td>
-<td></td>
-                            <td >
+                            <td></td>
+                            <td></td>
+                            <td>
                                 Facture #: {{factureAchat.id}}<br>
                                 Crée: {{theDate | date:'mediumDate'}}<br>
                                 De: {{factureAchat.achat.dateAchat | date:'mediumDate'}}
@@ -126,14 +127,14 @@
                 <td colspan="4">
                     <table>
                         <tr>
-                            <td >
+                            <td>
                                 Sparksuite, Inc.<br>
                                 12345 Sunny Road<br>
                                 Sunnyville, CA 12345
                             </td>
-<td></td>
-<td></td>
-                            <td >
+                            <td></td>
+                            <td></td>
+                            <td>
                                 {{factureAchat.achat.fournisseur.nom}} <br>
                                 {{factureAchat.achat.fournisseur.adresse}}<br>
                                 {{factureAchat.achat.fournisseur.telephone}}
@@ -185,11 +186,48 @@
                 <td></td>
 
                 <td>
-                    Total: {{factureAchat.achat.totalPrix}}
+                    Prix Total HT: {{factureAchat.achat.totalPrix}}
+                </td>
+            </tr>
+            <tr class="total">
+                <td></td>
+                <td></td>
+                <td></td>
+
+                <td>
+                    Remise{{this.factureAchat.achat.remise}}%: {{remise}}
+                </td>
+            </tr>
+            <tr class="total">
+                <td></td>
+                <td></td>
+                <td></td>
+
+                <td>
+                    Montant net: {{montantNet}}
+                </td>
+            </tr>
+            <tr class="total">
+                <td></td>
+                <td></td>
+                <td></td>
+
+                <td>
+                    TVA{{tva}}%: {{montantTVA}}
+                </td>
+            </tr>
+            <tr class="total">
+                <td></td>
+                <td></td>
+                <td></td>
+
+                <td>
+                    Montant TTC: {{montantTTC}}
                 </td>
             </tr>
         </table>
     </div>
 </body>
 <button type="button" class="btn btn-primary" (click)='downloadPDF()'>Export PDF</button>
+
 </html>
