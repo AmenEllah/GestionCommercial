@@ -89,13 +89,7 @@
                             <span jhiTranslate="global.menu.entities.vente">Vente</span>
                         </a>
                     </li>
-                    <li>
-                        <a class="dropdown-item" routerLink="facture-achat" routerLinkActive="active"
-                            [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <fa-icon [icon]="'asterisk'" [fixedWidth]="true"></fa-icon>
-                            <span jhiTranslate="global.menu.entities.factureAchat">Facture Achat</span>
-                        </a>
-                    </li>
+
                     <li>
                         <a class="dropdown-item" routerLink="article-vente" routerLinkActive="active"
                             [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
@@ -108,6 +102,13 @@
                             [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon [icon]="'asterisk'" [fixedWidth]="true"></fa-icon>
                             <span jhiTranslate="global.menu.entities.articleAchat">Article Achat</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="facture-achat" routerLinkActive="active"
+                            [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon [icon]="'asterisk'" [fixedWidth]="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.factureAchat">Facture Achat</span>
                         </a>
                     </li>
                     <li>

@@ -33,7 +33,8 @@ export class FactureAchatDetailComponent implements OnInit {
         });
         this.articleAchatService.query().subscribe((data: HttpResponse<IArticleAchat[]>) => {
             this.articleAchats = data.body;
-            this.articleAchats.filter(x => x.achat.id === this.factureAchat.achat.id);
+            this.articleAchats = this.articleAchats.filter(x => x.achat.id === this.factureAchat.achat.id);
+
             this.theDate = new Date();
             this.sysDate = this.theDate.toUTCString();
 

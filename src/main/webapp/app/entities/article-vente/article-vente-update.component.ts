@@ -29,6 +29,7 @@ export class ArticleVenteUpdateComponent implements OnInit {
     ancienQuantite: any;
     new: boolean;
     id: number;
+    quantiteInsuffisante = false;
 
     constructor(
         private jhiAlertService: JhiAlertService,
@@ -84,6 +85,10 @@ export class ArticleVenteUpdateComponent implements OnInit {
         if (this.articleVente.id !== undefined) {
             this.articleService.find(this.articleVente.article.id).subscribe((data: HttpResponse<IArticle>) => {
                 data.body.totalVente += this.articleVente.quantite - this.ancienQuantite;
+                if (data.body.totalVente > data.body.totalAchat + data.body.stockInitiale) {
+                    console.log('quantité insufésente');
+                    return;
+                }
                 this.articleService.update(data.body).subscribe();
             });
             this.venteService.find(this.articleVente.vente.id).subscribe((data: HttpResponse<IVente>) => {
@@ -103,17 +108,22 @@ export class ArticleVenteUpdateComponent implements OnInit {
         } else {
             this.articleService.find(this.articleVente.article.id).subscribe((data: HttpResponse<IArticle>) => {
                 data.body.totalVente += this.articleVente.quantite;
+                if (data.body.totalVente > data.body.totalAchat + data.body.stockInitiale) {
+                    this.quantiteInsuffisante = true;
+                    this.isSaving = false;
+                    return;
+                }
                 this.articleService.update(data.body).subscribe();
-            });
-            this.vente.totalPrix += this.articleVente.quantite * this.articleVente.article.prix;
+                this.vente.totalPrix += this.articleVente.quantite * this.articleVente.article.prix;
 
-            this.vente.montantRestant += this.articleVente.quantite * this.articleVente.article.prix;
-            this.clientService.find(this.vente.client.id).subscribe((data: HttpResponse<IClient>) => {
-                data.body.montantRestant += this.articleVente.quantite * this.articleVente.article.prix;
-                this.clientService.update(data.body).subscribe();
+                this.vente.montantRestant += this.articleVente.quantite * this.articleVente.article.prix;
+                this.clientService.find(this.vente.client.id).subscribe((client: HttpResponse<IClient>) => {
+                    client.body.montantRestant += this.articleVente.quantite * this.articleVente.article.prix;
+                    this.clientService.update(client.body).subscribe();
+                });
+                this.venteService.update(this.vente).subscribe();
+                this.subscribeToSaveResponse(this.articleVenteService.create(this.articleVente));
             });
-            this.venteService.update(this.vente).subscribe();
-            this.subscribeToSaveResponse(this.articleVenteService.create(this.articleVente));
         }
     }
 
@@ -147,5 +157,8 @@ export class ArticleVenteUpdateComponent implements OnInit {
 
     set articleVente(articleVente: IArticleVente) {
         this._articleVente = articleVente;
+    }
+    change() {
+        this.quantiteInsuffisante = false;
     }
 }

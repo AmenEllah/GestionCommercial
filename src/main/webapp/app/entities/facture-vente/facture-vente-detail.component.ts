@@ -33,7 +33,7 @@ export class FactureVenteDetailComponent implements OnInit {
         });
         this.articleVenteService.query().subscribe((data: HttpResponse<IArticleVente[]>) => {
             this.articleVentes = data.body;
-            this.articleVentes.filter(x => x.vente.id === this.factureVente.vente.id);
+            this.articleVentes = this.articleVentes.filter(x => x.vente.id === this.factureVente.vente.id);
 
             this.totalHT = this.factureVente.vente.totalPrix;
             this.remise = this.totalHT * this.factureVente.vente.remise / 100;
