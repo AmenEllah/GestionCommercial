@@ -27,6 +27,8 @@ export class RecouvrementUpdateComponent implements OnInit {
     new: boolean;
     id: number;
 
+    supMontRest = false;
+
     constructor(
         private jhiAlertService: JhiAlertService,
         private recouvrementService: RecouvrementService,
@@ -72,25 +74,40 @@ export class RecouvrementUpdateComponent implements OnInit {
         if (this.recouvrement.id !== undefined) {
             this.venteService.find(this.recouvrement.vente.id).subscribe((data: HttpResponse<IVente>) => {
                 this.vente = data.body;
-                this.vente.montantRestant -= this.recouvrement.montant - this.montantAncien;
+                const montantRestant = this.vente.montantRestant - this.recouvrement.montant + this.montantAncien;
+                if (montantRestant < 0) {
+                    this.supMontRest = true;
+                    this.isSaving = false;
+                    return;
+                } else {
+                    this.vente.montantRestant = montantRestant;
+                }
                 this.venteService.update(this.vente).subscribe();
-            });
 
-            this.clientService.find(this.recouvrement.vente.client.id).subscribe((data: HttpResponse<IClient>) => {
-                this.client = data.body;
-                this.client.montantRestant -= this.recouvrement.montant - this.montantAncien;
-                this.clientService.update(this.client).subscribe();
+                this.clientService.find(this.recouvrement.vente.client.id).subscribe((client: HttpResponse<IClient>) => {
+                    this.client = client.body;
+                    this.client.montantRestant -= this.recouvrement.montant - this.montantAncien;
+                    this.clientService.update(this.client).subscribe();
+                });
+
+                this.subscribeToSaveResponse(this.recouvrementService.update(this.recouvrement));
             });
-            this.subscribeToSaveResponse(this.recouvrementService.update(this.recouvrement));
         } else {
             this.clientService.find(this.recouvrement.vente.client.id).subscribe((data: HttpResponse<IClient>) => {
                 this.client = data.body;
+                const montantRestant = this.vente.montantRestant - this.recouvrement.montant;
+                if (montantRestant < 0) {
+                    this.supMontRest = true;
+                    this.isSaving = false;
+                    return;
+                } else {
+                    this.vente.montantRestant = montantRestant;
+                }
                 this.client.montantRestant -= this.recouvrement.montant;
                 this.clientService.update(this.client).subscribe();
+                this.venteService.update(this.vente).subscribe();
+                this.subscribeToSaveResponse(this.recouvrementService.create(this.recouvrement));
             });
-            this.vente.montantRestant = this.vente.montantRestant - this.recouvrement.montant;
-            this.venteService.update(this.vente).subscribe();
-            this.subscribeToSaveResponse(this.recouvrementService.create(this.recouvrement));
         }
     }
 

@@ -86,7 +86,8 @@ export class ArticleVenteUpdateComponent implements OnInit {
             this.articleService.find(this.articleVente.article.id).subscribe((data: HttpResponse<IArticle>) => {
                 data.body.totalVente += this.articleVente.quantite - this.ancienQuantite;
                 if (data.body.totalVente > data.body.totalAchat + data.body.stockInitiale) {
-                    console.log('quantité insufésente');
+                    this.quantiteInsuffisante = true;
+                    this.isSaving = false;
                     return;
                 }
                 this.articleService.update(data.body).subscribe();

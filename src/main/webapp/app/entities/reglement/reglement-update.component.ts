@@ -27,6 +27,7 @@ export class ReglementUpdateComponent implements OnInit {
     dateRecDp: any;
     id: number;
 
+    supMontRest = false;
     constructor(
         private jhiAlertService: JhiAlertService,
         private reglementService: ReglementService,
@@ -72,25 +73,42 @@ export class ReglementUpdateComponent implements OnInit {
         if (this.reglement.id !== undefined) {
             this.achatService.find(this.reglement.achat.id).subscribe((data: HttpResponse<IAchat>) => {
                 this.achat = data.body;
-                this.achat.montantRestant -= this.reglement.montant - this.montantAncien;
+                const montantRestant = this.achat.montantRestant - this.reglement.montant + this.montantAncien;
+                if (montantRestant < 0) {
+                    this.supMontRest = true;
+                    this.isSaving = false;
+                    return;
+                } else {
+                    this.achat.montantRestant = montantRestant;
+                }
                 this.achatService.update(this.achat).subscribe();
-            });
 
-            this.fournisseurService.find(this.reglement.achat.fournisseur.id).subscribe((data: HttpResponse<IFournisseur>) => {
-                this.fournisseur = data.body;
-                this.fournisseur.montantRestant -= this.reglement.montant - this.montantAncien;
-                this.fournisseurService.update(this.fournisseur).subscribe();
+                this.fournisseurService.find(this.reglement.achat.fournisseur.id).subscribe((fournis: HttpResponse<IFournisseur>) => {
+                    this.fournisseur = fournis.body;
+                    this.fournisseur.montantRestant -= this.reglement.montant - this.montantAncien;
+                    this.fournisseurService.update(this.fournisseur).subscribe();
+                });
+                this.subscribeToSaveResponse(this.reglementService.update(this.reglement));
             });
-            this.subscribeToSaveResponse(this.reglementService.update(this.reglement));
         } else {
             this.fournisseurService.find(this.reglement.achat.fournisseur.id).subscribe((data: HttpResponse<IFournisseur>) => {
+                const montantRestant = this.achat.montantRestant - this.reglement.montant;
+                if (montantRestant < 0) {
+                    this.supMontRest = true;
+                    this.isSaving = false;
+                    return;
+                } else {
+                    this.achat.montantRestant = montantRestant;
+                }
+                this.achatService.update(this.achat).subscribe();
+
                 this.fournisseur = data.body;
                 this.fournisseur.montantRestant -= this.reglement.montant;
+
                 this.fournisseurService.update(this.fournisseur).subscribe();
+
+                this.subscribeToSaveResponse(this.reglementService.create(this.reglement));
             });
-            this.achat.montantRestant = this.achat.montantRestant - this.reglement.montant;
-            this.achatService.update(this.achat).subscribe();
-            this.subscribeToSaveResponse(this.reglementService.create(this.reglement));
         }
     }
 
@@ -120,5 +138,8 @@ export class ReglementUpdateComponent implements OnInit {
 
     set reglement(reglement: IReglement) {
         this._reglement = reglement;
+    }
+    change() {
+        this.supMontRest = false;
     }
 }

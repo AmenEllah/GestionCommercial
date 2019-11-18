@@ -12,8 +12,11 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="gestionApp.recouvrement.montant"
                         for="field_montant">Montant</label>
-                    <input type="number" class="form-control" name="montant" id="field_montant"
-                        [(ngModel)]="recouvrement.montant" />
+                    <input type="number" class="form-control" [ngClass]="{'is-invalid': supMontRest}" name="montant"
+                        id="field_montant" [(ngModel)]="recouvrement.montant" />
+                    <div class="invalid-feedback">
+                        Montant supérieur au restant.
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="gestionApp.recouvrement.dateRec"

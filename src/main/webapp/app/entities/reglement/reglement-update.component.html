@@ -1,58 +1,71 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-            <h2 id="jhi-reglement-heading" jhiTranslate="gestionApp.reglement.home.createOrEditLabel">Create or edit a Reglement</h2>
+            <h2 id="jhi-reglement-heading" jhiTranslate="gestionApp.reglement.home.createOrEditLabel">Create or edit a
+                Reglement</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
                 <div class="form-group" [hidden]="!reglement.id">
                     <label for="id" jhiTranslate="global.field.id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id"
-                        [(ngModel)]="reglement.id" readonly />
+                    <input type="text" class="form-control" id="id" name="id" [(ngModel)]="reglement.id" readonly />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="gestionApp.reglement.montant" for="field_montant">Montant</label>
-                    <input type="number" class="form-control" name="montant" id="field_montant"
-                        [(ngModel)]="reglement.montant" />
+                    <label class="form-control-label" jhiTranslate="gestionApp.reglement.montant"
+                        for="field_montant">Montant</label>
+                    <input type="number" (input)="change()" class="form-control" [ngClass]="{'is-invalid': supMontRest}"
+                        name="montant" id="field_montant" [(ngModel)]="reglement.montant" />
+                    <div class="invalid-feedback">
+                        Montant supérieur au restant.
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="gestionApp.reglement.dateReg" for="field_dateReg">Date Reg</label>
+                    <label class="form-control-label" jhiTranslate="gestionApp.reglement.dateReg"
+                        for="field_dateReg">Date Reg</label>
                     <div class="input-group">
-                        <input id="field_dateReg" type="text" class="form-control" name="dateReg" ngbDatepicker  #dateRegDp="ngbDatepicker" [(ngModel)]="reglement.dateReg"
-                        />
+                        <input id="field_dateReg" type="text" class="form-control" name="dateReg" ngbDatepicker
+                            #dateRegDp="ngbDatepicker" [(ngModel)]="reglement.dateReg" />
                         <span class="input-group-append">
-                            <button type="button" class="btn btn-secondary" (click)="dateRegDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                            <button type="button" class="btn btn-secondary" (click)="dateRegDp.toggle()">
+                                <fa-icon [icon]="'calendar-alt'"></fa-icon>
+                            </button>
                         </span>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="gestionApp.reglement.modeReglement" for="field_modeReglement">Mode Reglement</label>
-                    <select class="form-control" name="modeReglement" [(ngModel)]="reglement.modeReglement" id="field_modeReglement" >
+                    <label class="form-control-label" jhiTranslate="gestionApp.reglement.modeReglement"
+                        for="field_modeReglement">Mode Reglement</label>
+                    <select class="form-control" name="modeReglement" [(ngModel)]="reglement.modeReglement"
+                        id="field_modeReglement">
                         <option value="CHÈQUES">{{'gestionApp.EnumModePaiement.CHÈQUES' | translate}}</option>
                         <option value="ESPÈCES">{{'gestionApp.EnumModePaiement.ESPÈCES' | translate}}</option>
-                        <option value="CARTE_BANQUAIRE">{{'gestionApp.EnumModePaiement.CARTE_BANQUAIRE' | translate}}</option>
+                        <option value="CARTE_BANQUAIRE">{{'gestionApp.EnumModePaiement.CARTE_BANQUAIRE' | translate}}
+                        </option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="gestionApp.reglement.achat" for="field_achat">Achat</label>
-                    <select [disabled]="!new"  class="form-control" id="field_achat" name="achat"
+                    <label class="form-control-label" jhiTranslate="gestionApp.reglement.achat"
+                        for="field_achat">Achat</label>
+                    <select [disabled]="!new" class="form-control" id="field_achat" name="achat"
                         [(ngModel)]="reglement.achat" required>
                         <option *ngIf="!editForm.value.achat" [ngValue]="null" selected></option>
-                        <option [ngValue]="achatOption.id === reglement.achat?.id ? reglement.achat : achatOption" *ngFor="let achatOption of achats; trackBy: trackAchatById">{{achatOption.id}}</option>
+                        <option [ngValue]="achatOption.id === reglement.achat?.id ? reglement.achat : achatOption"
+                            *ngFor="let achatOption of achats; trackBy: trackAchatById">{{achatOption.id}}</option>
                     </select>
                 </div>
                 <div [hidden]="!(editForm.controls.achat?.dirty && editForm.controls.achat?.invalid)">
-                    <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.achat?.errors?.required" jhiTranslate="entity.validation.required">
+                    <small class="form-text text-danger" [hidden]="!editForm.controls.achat?.errors?.required"
+                        jhiTranslate="entity.validation.required">
                         This field is required.
                     </small>
                 </div>
             </div>
             <div>
-                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
                 </button>
-                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving"
+                    class="btn btn-primary">
                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                 </button>
             </div>

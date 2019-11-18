@@ -1,17 +1,16 @@
-
 {
     "gestionApp": {
-        "famille" : {
+        "famille": {
             "home": {
                 "title": "Familles",
-                "createLabel": "Créer un nouveau Famille",
+                "createLabel": "Créer une nouvelle Famille",
                 "createOrEditLabel": "Créer ou éditer un Famille"
             },
-            "created": "Un nouveau Famille a été créé avec l'identifiant {{ param }}",
-            "updated": "Le Famille avec l'identifiant {{ param }} a été mis à jour",
-            "deleted": "Le Famille avec l'identifiant {{ param }} a été supprimé",
+            "created": "Une nouvelle Famille a été créé avec l'identifiant {{ param }}",
+            "updated": "La Famille avec l'identifiant {{ param }} a été mise à jour",
+            "deleted": "La Famille avec l'identifiant {{ param }} a été supprimée",
             "delete": {
-                "question": "Etes-vous certain de vouloir supprimer le Famille {{ id }} ?"
+                "question": "Etes-vous certain de vouloir supprimer la Famille {{ id }} ?"
             },
             "detail": {
                 "title": "Famille"
