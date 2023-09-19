@@ -1,0 +1,14 @@
+require 'openssl'
+require 'base64'
+
+def my_function(body, key)
+  raise 'No secondary key provided' unless key
+
+  content_type = pm.request.headers['Content-Type'] || ''
+  signature_raw_data = "#{body}#{content_type}#{body.length}#{pm.variables['xRequestId']}"
+  
+  secret_byte_array = Base64.decode64(key)
+  hmac = OpenSSL::HMAC.digest(OpenSSL::Digest.new('sha256'), secret_byte_array, signature_raw_data)
+  
+  Base64.encode64(hmac)
+end
